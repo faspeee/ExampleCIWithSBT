@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 package prova
 
 case class Person(val nome: String, val cognome: String, val matricola: Int, val ruolo: Int){
@@ -19,5 +20,7 @@ object Main extends App{
 
  print(people.appendedAll(combination(names, surnames)))
  //people.foreach(t => println(t))
+
+ def isGordo(s:String) = s.equals("Fabian")
 
 }
