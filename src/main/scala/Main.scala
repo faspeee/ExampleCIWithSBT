@@ -1,3 +1,3 @@
-object Main extends App{
- println("hola")
+object Main {
+ def isGordo(s:String) = s.equals("Fabian")
 }
