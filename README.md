@@ -21,6 +21,14 @@ per far **pull** del nostro repository bisogna scrivere
 
 _git pull_
 
+per **eliminare** un file bisogna scrivere 
+
+git rm _[name_file]_
+
+per **eliminare** una directory bisogna scrivere 
+
+git rm -r _[name_directory]_
+
 ****Comandi vim****
 
 per salvare= _**esc+ :w**_ 
