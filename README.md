@@ -29,6 +29,14 @@ per **eliminare** una directory bisogna scrivere
 
 git rm -r _[name_directory]_
 
+per vedere stato git 
+
+git status
+
+per resolvere merge conflict guardare il seguente link
+
+https://stackoverflow.com/questions/161813/how-to-resolve-merge-conflicts-in-git
+
 ****Comandi vim****
 
 per salvare= _**esc+ :w**_ 
