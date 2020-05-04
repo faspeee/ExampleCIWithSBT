@@ -1,15 +1,15 @@
 language: scala
 
-jdk: openjdk8
+jdk: openjdk9
 
 scala:
   - 2.13.1
   - 2.13.2
 os:
   - linux
-  - osx 
+  - osx
 
 script:
   - sbt ++$TRAVIS_SCALA_VERSION test
-  - sbt -jvm-opts travis/jvmopts.compile ... compile
-  - sbt -jvm-opts travis/jvmopts.test ... test
+  - sbt -jvm-opts travis/jvmopts.compile
+  - sbt -jvm-opts travis/jvmopts.test
