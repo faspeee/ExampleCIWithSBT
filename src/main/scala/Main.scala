@@ -1,4 +1,3 @@
-
 package prova
 
 case class Person(val nome: String, val cognome: String, val matricola: Int, val ruolo: Int){
