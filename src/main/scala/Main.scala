@@ -1,6 +1,10 @@
 package prova
 
 case class Person(val nome: String, val cognome: String, val matricola: Int, val ruolo: Int){
+ var a = 2
+ var i = 1
+ if (!(a == 2)) {  }  // Noncompliant
+ val b = !(i < 10)  // Noncompliant
 }
 
 object Main extends App{

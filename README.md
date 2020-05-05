@@ -37,6 +37,11 @@ per resolvere merge conflict guardare il seguente link
 
 https://stackoverflow.com/questions/161813/how-to-resolve-merge-conflicts-in-git
 
+evitare creare file .orig
+
+_git config --global mergetool.keepBackup false_
+
+
 ****Comandi vim****
 
 per salvare= _**esc+ :w**_ 
