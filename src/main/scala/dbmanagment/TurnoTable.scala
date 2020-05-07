@@ -25,8 +25,6 @@ trait TurnoTable {
   def insertTurno(nomeTurno:String, fasciaOraria: String): Future[Int]
 }
 
-private case class Turno(nomeTurno: String, fasciaOraria: String,id: Option[Int] = None)
-
 object TurnoTable{
   def apply(): TurnoTable = new TurnoTableImpl()
 
@@ -38,6 +36,7 @@ object TurnoTable{
     }
   }
 
+  private case class Turno(nomeTurno: String, fasciaOraria: String,id: Option[Int] = None)
   private class TurnoTableRep(tag: Tag) extends Table[Turno](tag, "TurnoSets") {
     def id = column[Int]("idTurno",O.PrimaryKey,O.AutoInc)
 
@@ -45,7 +44,7 @@ object TurnoTable{
 
     def fasciaOraria = column[String]("FasciaOraria")
 
-    def * = (nomeTurno, fasciaOraria,id.?) <> (Turno.tupled,Turno.unapply)
+    def * = (nomeTurno, fasciaOraria,id.?).mapTo[Turno]
   }
 
   private val turni = TableQuery[TurnoTableRep]
