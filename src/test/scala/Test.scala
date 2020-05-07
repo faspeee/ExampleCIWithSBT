@@ -1,5 +1,5 @@
 import org.scalatest.funsuite.AnyFunSuite
-import Main._
+import prova.Main._
 
 /**
  * Testing Class
