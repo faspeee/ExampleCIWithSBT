@@ -2,7 +2,6 @@
 package prova
 
 import setting.{ConectDataBase, FilterDataBase, InsertDataBase, SelectDataBase}
- 
 case class Person(val nome: String, val cognome: String, val matricola: Int, val ruolo: Int){
  var a = 2
  var i = 1
