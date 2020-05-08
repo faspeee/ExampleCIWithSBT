@@ -1,44 +1,38 @@
 package controller
 
-import java.net.URL
-import java.util.ResourceBundle
+import dbmanagment.TurnoTable
+import view.MainView
 
-import controller.components.{Component, TopHBoxController}
-import javafx.fxml.{FXML, FXMLLoader, Initializable}
-import javafx.scene.control.Button
-import javafx.scene.layout.BorderPane
-import javafx.scene.{Parent, Scene}
-import javafx.stage.Stage
+import scala.Option
+import scala.util.Success
+import scala.concurrent.ExecutionContext.Implicits.global
 
-import scala.language.postfixOps
 
-object MainController{
-  private class MainController extends Initializable{
-    @FXML
-    private var insert:Button = _
-    @FXML
-    private var pane: BorderPane = _
+trait MainController{
+  def setView(view:MainView)
+  def loadOnView()
+  def turnoAdded(nome:String, fascia:String)
+}
+object MainController {
+  def apply(model:TurnoTable): MainController = new MainControllerImpl(model)
 
-    private var stage:Stage = _
-    def apply(primaryStage: Stage){
-      stage = primaryStage
-      val loader = new FXMLLoader(getClass.getResource("/fxml/MainView.fxml"))
-      loader.setController(this)
-      loader.load
-      stage.setScene(new Scene(loader.getRoot[Parent]))
-      println("aa")
-      println(insert)
-      stage show
-    }
+  private class MainControllerImpl(val model:TurnoTable) extends MainController {
+    var mainView:Option[MainView] = None //se lo facciamo così possiamo anche fare senza grafica, basta dare roba al posto di None
+    override def setView(view: MainView) =
+      mainView=Option(view)
 
-    override def initialize(location: URL, resources: ResourceBundle): Unit = {
-      val panel:Component = TopHBoxController()
-      pane.setTop(panel.getComponent())
-      insert.setOnAction(e => {
-        println("RIRIIRIR")
-      })
-      println("mi")
+    override def loadOnView(): Unit =
+      mainView match {
+        case Some(x) => x.loadComponent()
+      }
+
+    override def turnoAdded(nome: String, fascia: String): Unit ={
+      println("arrivati -> " ,nome,fascia)
+     val inserted = model.insertTurno(nome,fascia)
+      inserted.onComplete{
+        case Success(x) => println(x)
+        case _ => println("error")
+      }
     }
   }
-  def apply(primaryStage:Stage) = new MainController()(primaryStage)
 }
