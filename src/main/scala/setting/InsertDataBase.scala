@@ -1,6 +1,5 @@
 package setting
 import ConectDataBase._
-import setting.Zona.{ZonaSet, zone}
 import slick.dbio.DBIO
 import slick.jdbc.SQLServerProfile.api._
 
@@ -9,7 +8,7 @@ import scala.concurrent.Await
 import scala.concurrent.duration.Duration
 import scala.concurrent.ExecutionContext.Implicits.global
 object InsertDataBase {
-  def insertZona()= {
+/*  def insertZona()= {
     try {
 
       Await.result(db.run(DBIO.seq(
@@ -31,5 +30,5 @@ object InsertDataBase {
     //#readall
 
    } finally  println("insertZona:")
-  }
+  }*/
 }

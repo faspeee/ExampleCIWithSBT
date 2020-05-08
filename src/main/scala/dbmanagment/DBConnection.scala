@@ -3,7 +3,7 @@ package dbmanagment
 import slick.basic.DatabaseConfig
 import slick.jdbc.{JdbcProfile}
 
-object DBConnection {
+object DBConnection{
   private val dbCo:DatabaseConfig[JdbcProfile] = DatabaseConfig.forConfig("sqlserver")
   private val database = dbCo.db
   /**
@@ -11,5 +11,5 @@ object DBConnection {
    * @return
    *         The DB instance active for the session
    */
-  def db()  = database
+  def db()  = database 
 }

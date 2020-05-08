@@ -41,6 +41,16 @@ evitare creare file .orig
 
 _git config --global mergetool.keepBackup false_
 
+per fare un upstream il cui ci permette essere aggiornato col repository principale bisogna
+fare: 
+
+_**git checkout master**_
+
+**_git checkout -b mybranch_**
+
+**_git remote add upstream /url/original/repo_**
+
+**_git fetch upstream_**
 
 ****Comandi vim****
 
