@@ -1,5 +1,4 @@
 package setting
-import Zona._
 import slick.basic.DatabaseConfig
 import slick.jdbc.JdbcProfile
 import scala.collection.mutable.ArrayBuffer
