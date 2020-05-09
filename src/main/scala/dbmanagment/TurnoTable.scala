@@ -26,15 +26,6 @@ trait TurnoTable {
 }
 
 object TurnoTable{
-  def apply(): TurnoTable = new TurnoTableImpl()
-
-  private class TurnoTableImpl extends TurnoTable{
-    private val db = DBConnection.db()
-    override def insertTurno(nomeTurno: String, fasciaOraria: String): Future[Int] = {
-      val insertId = (turni returning turni.map(_.id)) += Turno(nomeTurno,fasciaOraria)
-      db.run(insertId)
-    }
-  }
 
   private case class Turno(nomeTurno: String, fasciaOraria: String,id: Option[Int] = None)
   private class TurnoTableRep(tag: Tag) extends Table[Turno](tag, "TurnoSets") {
