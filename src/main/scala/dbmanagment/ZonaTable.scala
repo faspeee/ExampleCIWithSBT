@@ -21,20 +21,10 @@ trait ZonaTable{
   def insertTurno(nomeTurno:String, fasciaOraria: String): Future[Int]
 }
 object ZonaTable{
-  def apply(): ZonaTable = new ZonaTableImpl()
-
-  private class ZonaTableImpl extends ZonaTable{
-    private val db = DBConnection.db()
-    override def insertTurno(nomeTurno: String, fasciaOraria: String): Future[Int] = ???
-  }
-
   case class Zona(Zones:String,IdZone:Option[Int]=None)
-  class ZonaTableRep(tag: Tag) extends Table[Zona](tag, "ZoneSets") {
-    def id = column[Int]("IdZona", O.PrimaryKey,O.AutoInc) // This is the primary key column
+  class ZonaTableRep(tag: Tag) extends GenericTable[Zona](tag, "ZoneSets","IdZona") {
     def zona = column[String]("Zone")
-
     // Every table needs a * projection with the same type as the table's type parameter
     def * = ( zona,id.?).mapTo[Zona]
   }
-  val zone = TableQuery[ZonaTableRep]
 }

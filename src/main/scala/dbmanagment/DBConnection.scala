@@ -1,15 +1,15 @@
 package dbmanagment
-
+import slick.jdbc.SQLServerProfile.api._
 import slick.basic.DatabaseConfig
-import slick.jdbc.{JdbcProfile}
+import slick.dbio.{DBIOAction, NoStream}
+import slick.jdbc.JdbcProfile
+import slick.lifted.TableQuery
 
-object DBConnection{
+trait DB[C <: GenericTable[T], T]{
+  protected val table: TableQuery[C]
   private val dbCo:DatabaseConfig[JdbcProfile] = DatabaseConfig.forConfig("sqlserver")
-  private val database = dbCo.db
-  /**
-   * Gets the instance of the database active in the session.
-   * @return
-   *         The DB instance active for the session
-   */
-  def db()  = database 
+  val database = dbCo.db
+  def run[R](a: DBIOAction[R, NoStream, Nothing]) = database.run(a)
 }
+
+

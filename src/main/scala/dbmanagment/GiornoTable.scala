@@ -22,21 +22,11 @@ trait GiornoTable {
 }
 
 object GiornoTable{
-  def apply(): GiornoTable = new GiornoTableImpl()
-
-  private class GiornoTableImpl extends GiornoTable{
-    private val db = DBConnection.db()
-    override def insertTurno(nomeTurno: String, fasciaOraria: String): Future[Int] = ???
-  }
-
   case class Giorno(Quantita:Int,NomeGiorno:String,IdGiorno:Option[Int]=None)
-  class GiornoTableRep(tag: Tag) extends Table[Giorno](tag, "GiornoSets") {
-    def id = column[Int]("IdGiorno", O.PrimaryKey,O.AutoInc) // This is the primary key column
+  class GiornoTableRep(tag: Tag) extends GenericTable[Giorno](tag, "GiornoSets","IdGiorno"){
     def quantita = column[Int]("Quantita")
     def nomeGiorno = column[String]("NomeGiorno")
     // Every table needs a * projection with the same type as the table's type parameter
     def * = ( quantita,nomeGiorno,id.?).mapTo[Giorno]
   }
-
-  val giorni = TableQuery[GiornoTableRep]
 }
