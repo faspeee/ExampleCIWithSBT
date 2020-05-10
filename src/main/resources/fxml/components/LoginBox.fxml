@@ -6,10 +6,12 @@
 <?import javafx.scene.layout.VBox?>
 
 
+<?import javafx.scene.control.Label?>
 <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" spacing="10.0" xmlns="http://javafx.com/javafx/8.0.191" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <TextField fx:id="usernameField" promptText="Username" />
       <TextField fx:id="passwordField" promptText="Password" />
+      <Label fx:id="error" text="" textFill="#dd0e0e" />
       <Button fx:id="loginButton" mnemonicParsing="false" text="Login" />
    </children>
    <padding>

@@ -7,16 +7,43 @@ import javafx.scene.layout.BorderPane
 import javafx.stage.Stage
 import view.loaders.SceneLoader
 
-abstract class ActiveScene[A] extends Initializable{
+/**
+ * Rappresentazione della scena attiva su schermo
+ */
+trait ActiveScene{
+  /**
+   * Permette di tornare allo [[javafx.stage.Stage]] precedente, se presente.
+   */
+  def goBack()
+}
+
+/**
+ * Template class per rappresentare scene attive, implementa [[view.scenes.ActiveScene]]
+ */
+abstract class AbstractActiveScene extends Initializable with ActiveScene {
+  /**
+   * Pannello di base per ogni scena, caricato dall'XML
+   */
   @FXML
   protected var pane: BorderPane = _
+  /**
+   * Stage precedente, Opzionale
+   */
+  protected var previousStage:Option[Stage] = _
+  /**
+   * Stage attuale
+   */
   protected var stage:Stage = _
-  protected var myController:A = _
 
-  def apply(primaryStage: Stage, controller: A){
+  def apply(primaryStage: Stage, oldStage:Option[Stage] = None){
     stage = primaryStage
-    myController = controller
+    previousStage = oldStage
     SceneLoader.loadScene(primaryStage,this, "/fxml/BaseView.fxml")
   }
-  def initialize(location: URL, resources: ResourceBundle): Unit = {}
+
+  override def goBack(): Unit = {
+    stage.hide
+    previousStage.get.show
+  }
+
 }

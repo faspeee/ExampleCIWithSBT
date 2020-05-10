@@ -1,10 +1,8 @@
 package view
 
-import controller.{LoginController}
-import dbmanagment.TurnoTable
 import javafx.application.Application
 import javafx.stage.Stage
-import view.scenes.{LoginView}
+import view.scenes.LoginView
 
 private class MainGianni extends Application{
   override def start(primaryStage: Stage): Unit =
@@ -13,8 +11,6 @@ private class MainGianni extends Application{
 
 object MainGianni extends Application{
   override def start(primaryStage: Stage): Unit = {
-    val model:TurnoTable = TurnoTable()
-    val controller: LoginController = LoginController()
-    LoginView(primaryStage,controller)
+    LoginView(primaryStage)
   }
 }
