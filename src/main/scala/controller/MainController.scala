@@ -1,6 +1,7 @@
 package controller
 
 import dbmanagment.TurnoTable
+import setting.TestDb.TurnoTable
 import view.MainView
 
 import scala.Option
@@ -28,11 +29,11 @@ object MainController {
 
     override def turnoAdded(nome: String, fascia: String): Unit ={
       println("arrivati -> " ,nome,fascia)
-     val inserted = model.insertTurno(nome,fascia)
+    /* val inserted = model.insertTurno(nome,fascia)
       inserted.onComplete{
         case Success(x) => println(x)
         case _ => println("error")
-      }
+      }*/
     }
   }
 }
