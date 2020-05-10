@@ -1,11 +1,8 @@
 package view
 
-import controller.MainController
-import dbmanagment.TurnoTable
 import javafx.application.Application
 import javafx.stage.Stage
-import setting.TestDb.TurnoTable
-
+import view.scenes.LoginView
 private class MainGianni extends Application{
   override def start(primaryStage: Stage): Unit =
     MainGianni.start(primaryStage)
@@ -14,9 +11,7 @@ private class MainGianni extends Application{
 object MainGianni extends Application{
   override def start(primaryStage: Stage): Unit = {
 
-  }
-
   def launch(): Unit = {
-    Application.launch()
+    LoginView(primaryStage)
   }
 }
