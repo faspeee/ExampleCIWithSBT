@@ -5,49 +5,55 @@ import dbmanagment.GiornoTable.GiornoTableRep
 import dbmanagment.ZonaTable.ZonaTableRep
 import dbmanagment.TurnoTable.TurnoTableRep
 import dbmanagment.implicitsGeneric.Brands
+import slick.jdbc.SQLServerProfile.api._
+import slick.lifted.AbstractTable
+
+import scala.concurrent.ExecutionContext.Implicits.global
+import scala.concurrent.Future
 import scala.reflect.runtime.{universe => runtime}
-trait GenericCrudClass[F]{
-  def create(element:F)
-  def read(element:F)
-  def update(element:F)
-  def delete(element:F)
+import scala.util.{Failure, Success}
+trait GenericCrudClass{
+  def create[F](element:F): Future[Int]
+  def read[F](element:F):Future[Option[Any]]
+  def update[F](element:F):Future[Int]
+  def delete[F](element:F):Future[Int]
 }
-object GenericCrudClass{
-  case class tableType[T,C<:GenericTable[T]:runtime.TypeTag](){
-    def tableType: GenericCRUD[T, C] ={
-      val implicits:GenericCRUD[T,C] = Brands[T,C]()
-      implicits
-    }
+object GenericCrudClass extends GenericCrudClass{
+  def apply(): GenericCrudClass =  GenericCrudClass
+  //scala reflect tableType.create(caseClass.asInstanceOf[Giorno])
+  //implicit val implicitStringOrdering2: GenericCRUD[Giorno,GiornoTableRep] = Brands[ Giorno,GiornoTableRep]()
+  def selectTableType[F,C<:GenericTable[F]:runtime.TypeTag]() =  {
+    Brands[F,C]()
   }
-  //scala reflect
-  def selectTableType[F](caseClass:F) = caseClass match {
-    case Giorno(_,_,_) =>tableType[Giorno,GiornoTableRep]().tableType.create(caseClass.asInstanceOf[Giorno])// esempipo  seguire
-    case Zona =>tableType[Zona,ZonaTableRep]().tableType
-    case Turno=>tableType[Turno,TurnoTableRep]().tableType
+  override def create[F](element:F) =element match {
+    case Giorno(x,y,z)=>selectTableType[Giorno,GiornoTableRep]().create(Giorno(x,y,z))//.create(element.asInstanceOf)
+    case Zona(x,y)=>selectTableType[Zona,ZonaTableRep]().create(Zona(x,y))//.create(element)//.create(element.asInstanceOf)
+    case Turno(x,y,z)=>selectTableType[Turno,TurnoTableRep]().create(Turno(x,y,z))//.create(element)//.create(element.asInstanceOf)
   }
-  def create[F](element:F)=element match {
-    case Giorno(_,_,_)=>selectTableType(element)//.create(element.asInstanceOf)
-    case Zona(_,_)=>selectTableType(element)//.create(element.asInstanceOf)
-    case Turno(_,_,_)=>selectTableType(element)//.create(element.asInstanceOf)
+  override def read[F](element:F)=element match {
+    case Giorno(_,_,z)=>selectTableType[Giorno,GiornoTableRep]().read(z.head)//.create(element.asInstanceOf)
+    case Zona(_,z)=>selectTableType[Zona,ZonaTableRep]().read(z.head)//.create(element)//.create(element.asInstanceOf)
+    case Turno(_,_,z)=>selectTableType[Turno,TurnoTableRep]().read(z.head)//.create(element)//.create(element.asInstanceOf)
   }
-  def read[F](element:F)=element match {
-    case Giorno(_,_,_)=>
-    case Zona(_,_)=>
-    case Turno(_,_,_)=>
+  override def update[F](element:F)=element match {
+    case Giorno(x,y,z)=>selectTableType[Giorno,GiornoTableRep]().update(z.head,Giorno(x,y,z))//.create(element.asInstanceOf)
+    case Zona(x,y)=>selectTableType[Zona,ZonaTableRep]().update(y.head,Zona(x,y))//.create(element)//.create(element.asInstanceOf)
+    case Turno(x,y,z)=>selectTableType[Turno,TurnoTableRep]().update(z.head,Turno(x,y,z))//.create(element)//.create(element.asInstanceOf)
   }
-  def update[F](element:F)=element match {
-    case Giorno(_,_,_)=>
-    case Zona(_,_)=>
-    case Turno(_,_,_)=>
-  }
-  def delete[F](element:F)=element match {
-    case Giorno(_,_,_)=>
-    case Zona(_,_)=>
-    case Turno(_,_,_)=>
+  override def delete[F](element:F)=element match {
+    case Giorno(_,_,z)=>selectTableType[Giorno,GiornoTableRep]().delete(z.head)//.create(element.asInstanceOf)
+    case Zona(_,z)=>selectTableType[Zona,ZonaTableRep]().delete(z.head)//.create(element)//.create(element.asInstanceOf)
+    case Turno(_,_,z)=>selectTableType[Turno,TurnoTableRep]().delete(z.head)//.create(element)//.create(element.asInstanceOf)
   }
 }
 object tryobject extends App{
-  import GenericCrudClass._
-  val s = Giorno(1,"2")
-  create(s)
+
+  val r:GenericCrudClass = GenericCrudClass()
+  val s = Seq(Turno("22","Juanito"),Turno("22","Juanito"),Turno("22","Juanito"))
+  val ss = r.create(s)
+    ss.onComplete{
+      case Success(x) => println("inserite ", x)
+      case Failure(x) => println("DIO",x)
+    }
+  while(true){}
 }
