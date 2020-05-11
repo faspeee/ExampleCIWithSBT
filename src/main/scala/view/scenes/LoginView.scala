@@ -60,7 +60,7 @@ object LoginView {
 
     override def goodLogin(): Unit ={
       stage.hide
-      TestTurnoView(new Stage(),Option(stage))
+      RisorseUmaneView(new Stage(),Option(stage))
     }
   }
 

@@ -8,7 +8,7 @@ import javafx.fxml.Initializable
 import javafx.stage.Stage
 import view.components.TopHBox
 
-trait TestTurnoObservable
+trait TestTurnoView
 
 trait TopHBoxObserver{
   def insertTurno(nomeTurno:String, fasciaOraria:String)
@@ -18,7 +18,7 @@ trait TopHBoxObserver{
  * Mi sono rotto, funziona uguale a [[view.scenes.LoginView]]
  */
 object TestTurnoView {
-  private class TestTurnoView extends AbstractActiveScene with Initializable with TestTurnoObservable with TopHBoxObserver {
+  private class TestTurnoViewImpl extends AbstractActiveScene with TestTurnoView with TopHBoxObserver {
     private val myController = TestTurnoController()
 
     override def initialize(location: URL, resources: ResourceBundle): Unit = {
@@ -33,5 +33,5 @@ object TestTurnoView {
     }
   }
 
-  def apply(primaryStage:Stage,oldStage:Option[Stage]) = new TestTurnoView()(primaryStage,oldStage)
+  def apply(primaryStage:Stage,oldStage:Option[Stage]) = new TestTurnoViewImpl()(primaryStage,oldStage)
 }

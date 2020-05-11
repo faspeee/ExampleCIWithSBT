@@ -25,7 +25,9 @@ trait LoginController extends Controller[LoginObservervable]{
  *
  */
 object LoginController {
-  def apply(): LoginController = new LoginControllerImpl()
+  private val instance = new LoginControllerImpl()
+
+  def apply(): LoginController = instance
 
   private class LoginControllerImpl extends AbstractController[LoginObservervable] with LoginController{
     private val model: MockLogin = MockLogin()
