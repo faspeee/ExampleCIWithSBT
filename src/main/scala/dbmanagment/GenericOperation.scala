@@ -22,19 +22,20 @@ abstract class GenericTableQuery[T, C <: AbstractTable[T]: runtime.TypeTag] {
 
 }
 trait GenericCRUD[T,C <: GenericTable[T]] extends GenericTableQuery[T,C] with DB[C,T] {
-  private val queryById = Compiled((id: Rep[Int]) => table.filter(_.id === id)) 
-  def readAll: Future[Seq[T]] = run(table.result)
-  def create(c: T): Future[Int] =  run((table returning table.map(_.id)) += c)
-  def read(id:Int): Future[Option[T]] = run(queryById(id).result.headOption)
+
+  private val queryById = Compiled((id: Rep[Int]) => table.filter(_.id === id))
+  def selectAll: Future[Seq[T]] = run(table.result)
+  def insert(c: T): Future[Int] =  run((table returning table.map(_.id)) += c)
+  def select(id:Int): Future[Option[T]] = run(queryById(id).result.headOption)
   def delete(id:Int): Future[Int] = run(queryById(id).delete)
-  def update(id:Int,c: T): Future[Int] =run(queryById(id).update(c))
+  def update(c: T): Future[Int] =run(table.insertOrUpdate(c))
 }
 object implicitsGeneric{
   case class Brands[T,C<: GenericTable[T]:runtime.TypeTag]() extends GenericCRUD[T,C] {
-    override def readAll: Future[Seq[T]] = super.readAll
-    override def create(elem: T): Future[Int]= super.create(elem)
-    override def read(id: Int): Future[Option[T]] = super.read(id)
+    override def selectAll: Future[Seq[T]] = super.selectAll
+    override def insert(elem: T): Future[Int]= super.insert(elem)
+    override def select(id: Int): Future[Option[T]] = super.select(id)
     override def delete(id: Int): Future[Int] = super.delete(id)
-    override def update(id: Int, elem: T): Future[Int] = super.update(id, elem)
+    override def update(elem: T): Future[Int] = super.update(elem)
   }
 }

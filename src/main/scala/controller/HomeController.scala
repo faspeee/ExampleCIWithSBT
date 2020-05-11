@@ -15,7 +15,7 @@ import scala.concurrent.Future
 import scala.util.{Failure, Success}
 abstract class  HomeController extends Initializable{
   @FXML var insert: Button = _
-  @FXML var create: Button = _
+  @FXML var select: Button = _
   @FXML var delete: Button = _
   @FXML var update: Button = _
   @FXML var text:TextField = _
@@ -34,6 +34,15 @@ object HomeController extends HomeController{
   override def initialize(location: URL, resources: ResourceBundle): Unit = {
     insert.setOnAction(e => {
       InsertDataBase.insertZona()
+    })
+    select.setOnAction(e => {
+      InsertDataBase.selectZona()
+    })
+    update.setOnAction(e => {
+      InsertDataBase.updateZona()
+    })
+    delete.setOnAction(e => {
+      InsertDataBase.deleteZona()
     })
   }
 }
