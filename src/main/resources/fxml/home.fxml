@@ -71,7 +71,7 @@
               </textFill>
             </Label>
                   <Button fx:id="insert" layoutX="22.0" layoutY="121.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="154.0" text="Insert" />
-                  <Button fx:id="create" layoutX="22.0" layoutY="219.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="154.0" text="Create" />
+                  <Button fx:id="select" layoutX="22.0" layoutY="219.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="154.0" text="Select" />
                   <Button fx:id="delete" layoutX="22.0" layoutY="169.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="154.0" text="Delete" />
                   <Button fx:id="update" layoutX="22.0" layoutY="263.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="154.0" text="Update" />
                   <TextField fx:id="text" layoutX="25.0" layoutY="75.0" />
