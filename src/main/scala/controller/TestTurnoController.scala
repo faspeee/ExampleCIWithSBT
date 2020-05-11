@@ -1,7 +1,8 @@
 package controller
 
 import dbmanagment.TurnoTable
-import view.scenes.TestTurnoObservable
+import mock.MockTurno
+import view.scenes.{TestTurnoView}
 
 import scala.util.{Failure, Success}
 import scala.concurrent.ExecutionContext.Implicits.global
@@ -10,7 +11,7 @@ import scala.concurrent.ExecutionContext.Implicits.global
  * Controller della schermata di turni. Estende [[controller.Controller]] con tipo [[view.scenes.TestTurnoObservable]]
  * per dire che è un controller di una view che è LoginObservable
  */
-trait TestTurnoController extends Controller[TestTurnoObservable]{
+trait TestTurnoController extends Controller[TestTurnoView]{
   /**
    * Inserimento del turno in database.
    * @param nomeTurno
@@ -25,17 +26,14 @@ trait TestTurnoController extends Controller[TestTurnoObservable]{
  * Companion del trait [[controller.TestTurnoController]]
  */
 object TestTurnoController {
-  def apply(): TestTurnoController = new TestTurnoControllerImpl()
+  private val instance = new TestTurnoControllerImpl()
 
-  private class TestTurnoControllerImpl() extends AbstractController[TestTurnoObservable] with TestTurnoController{
-    private val model:TurnoTable = TurnoTable()
+  def apply(): TestTurnoController = instance
 
+  private class TestTurnoControllerImpl() extends AbstractController[TestTurnoView] with TestTurnoController{
+    private val model:MockTurno = MockTurno()
     override def insertTurno(nomeTurno: String, fasciaOraria: String): Unit = {
-      val id = model.insertTurno(nomeTurno,fasciaOraria)
-      id.onComplete{
-        case Success(value) => println("WEWE OK!  ",value)
-        case Failure(exception) => println(exception)
-      }
+      println(model insertTurno(nomeTurno,fasciaOraria))
     }
   }
 }
