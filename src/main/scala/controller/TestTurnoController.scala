@@ -28,14 +28,14 @@ object TestTurnoController {
   def apply(): TestTurnoController = new TestTurnoControllerImpl()
 
   private class TestTurnoControllerImpl() extends AbstractController[TestTurnoObservable] with TestTurnoController{
-    private val model:TurnoTable = TurnoTable()
+   // private val model:TurnoTable = TurnoTable()
 
     override def insertTurno(nomeTurno: String, fasciaOraria: String): Unit = {
-      val id = model.insertTurno(nomeTurno,fasciaOraria)
+     /* val id = model.insertTurno(nomeTurno,fasciaOraria)
       id.onComplete{
         case Success(value) => println("WEWE OK!  ",value)
         case Failure(exception) => println(exception)
-      }
+      }*/
     }
   }
 }

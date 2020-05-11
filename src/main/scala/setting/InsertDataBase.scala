@@ -35,6 +35,7 @@ object InsertDataBase {
    } finally  println("insertZona:")
   }
   def insertGiorno(): Unit ={
+
   //  implicit val implicitStringOrdering2: GenericCRUD[Giorno,GiornoTableRep] = Brands[ Giorno,GiornoTableRep]()
    // val ss = Giorno(11,"Lunedi")
    // val ff = implicitStringOrdering2.create(ss)

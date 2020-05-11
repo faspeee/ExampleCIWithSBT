@@ -8,4 +8,5 @@ object TurnoTable{
     def fasciaOraria = column[String]("FasciaOraria")
     def * = (nomeTurno, fasciaOraria,id.?).mapTo[Turno]
   }
+  val table = TableQuery[TurnoTableRep]
 }
