@@ -1,6 +1,6 @@
 language: scala
 
-jdk: openjdk9
+jdk: openjdk11
 
 scala:
   - 2.13.1
@@ -11,7 +11,7 @@ os:
 
 before_install:
   - sudo apt update
-  - sudo apt install openjfx 
+  - sudo apt install openjfx
   - export DISPLAY=:99.0
 
 install: true
