@@ -1,7 +1,7 @@
 name := "SbtWithCI"
 
 version := "0.1"
-
+scalacOptions += "-deprecation"
 scalaVersion := "2.13.2"
 scalacOptions += "-Ymacro-annotations"
 libraryDependencies += "org.scalafx" %% "scalafxml-core-sfx8" % "0.5"
