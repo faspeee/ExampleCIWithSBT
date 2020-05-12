@@ -14,6 +14,12 @@ object InsertDataBase {
       }
    }
   }
+  def selectAllZona(): Unit ={
+    val s = Zona
+    selectAll(s)  onComplete { posts =>
+      for (post <- posts) println(post)
+    }
+  }
   def selectZona(): Unit ={
     val s = Zona("",Some(id))
      select(s)  onComplete { posts =>
