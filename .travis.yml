@@ -1,6 +1,6 @@
 language: scala
 
-jdk: openjdk11
+jdk: openjdk9
 
 scala:
   - 2.13.1
@@ -8,6 +8,14 @@ scala:
 os:
   - linux
   - osx
+
+before_install:
+  - sudo apt update
+  - sudo apt install openjfx
+  - chmod +x ./gradlew
+  - export DISPLAY=:99.0
+
+install: true
 
 script:
   - sbt ++$TRAVIS_SCALA_VERSION test

@@ -14,7 +14,3 @@ libraryDependencies ++= Seq(
   "com.typesafe.slick" %% "slick-hikaricp" % "3.3.2",
   "com.microsoft.sqlserver" % "mssql-jdbc" % "8.2.2.jre8"
 )
-// https://mvnrepository.com/artifact/org.openjfx/javafx
-libraryDependencies += "org.openjfx" % "javafx" % "11" pomOnly()
-// https://mvnrepository.com/artifact/org.openjfx/javafx-controls
-libraryDependencies += "org.openjfx" % "javafx-controls" % "11"
