@@ -10,9 +10,6 @@ private class MainGianni extends Application{
 
 object MainGianni extends Application {
   override def start(primaryStage: Stage): Unit = {
-
-    def launch(): Unit = {
       LoginView(primaryStage)
-    }
   }
 }

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+
+<HBox alignment="CENTER" prefHeight="31.0" prefWidth="396.0" spacing="15.0" xmlns="http://javafx.com/javafx/8.0.191" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <Label fx:id="id" />
+        <Label fx:id="nomeZona" />
+        <CheckBox fx:id="selezionato" mnemonicParsing="false" />
+    </children>
+</HBox>

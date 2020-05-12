@@ -1,8 +1,9 @@
 package controller
 
+import dbmanagment.CaseClassDB.Turno
 import dbmanagment.TurnoTable
 import mock.MockTurno
-import view.scenes.{TestTurnoView}
+import view.scenes.TestTurnoView
 
 import scala.util.{Failure, Success}
 import scala.concurrent.ExecutionContext.Implicits.global
@@ -30,14 +31,8 @@ object TestTurnoController {
   def apply(): TestTurnoController = instance
 
   private class TestTurnoControllerImpl() extends AbstractController[TestTurnoView] with TestTurnoController{
-    private val model:MockTurno = MockTurno()
     override def insertTurno(nomeTurno: String, fasciaOraria: String): Unit = {
-     /* val id = model.insertTurno(nomeTurno,fasciaOraria)
-      id.onComplete{
-        case Success(value) => println("WEWE OK!  ",value)
-        case Failure(exception) => println(exception)
-      }*/
-      println(model insertTurno(nomeTurno,fasciaOraria))
+      val turno = Turno(nomeTurno,fasciaOraria)
     }
   }
 }

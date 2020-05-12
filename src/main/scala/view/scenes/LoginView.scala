@@ -6,7 +6,8 @@ import java.util.ResourceBundle
 import controller.LoginController
 import javafx.fxml.Initializable
 import javafx.stage.Stage
-import view.components.{LoginBox}
+import javax.swing.text.ZoneView
+import view.components.LoginBox
 
 /**
  * Metodi messi a disposizione del [[controller.Controller]] che lo controlla
@@ -60,7 +61,7 @@ object LoginView {
 
     override def goodLogin(): Unit ={
       stage.hide
-      RisorseUmaneView(new Stage(),Option(stage))
+      ZonaView(new Stage(),Option(stage))
     }
   }
 
