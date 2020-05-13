@@ -53,7 +53,7 @@ object MainView{
     }
 
     override def turnoAdded(nomeTurno: String, fasciaOraria: String): Unit =
-      myController.turnoAdded(nomeTurno,fasciaOraria)
+      myController.aggiorna(12)
   }
   def apply(primaryStage:Stage, controller: MainController) = new MainViewImpl()(primaryStage,controller)
 }

@@ -28,6 +28,7 @@ trait TurnoTable {
 object TurnoTable{
 
   private case class Turno(nomeTurno: String, fasciaOraria: String,id: Option[Int] = None)
+
   private class TurnoTableRep(tag: Tag) extends Table[Turno](tag, "TurnoSets") {
     def id = column[Int]("idTurno",O.PrimaryKey,O.AutoInc)
 
