@@ -1,47 +1,42 @@
 package setting
-import dbmanagment.GiornoTable.{Giorno, GiornoTableRep}
-import dbmanagment.{GenericCRUD, ZonaTable}
-import dbmanagment.ZonaTable.{Zona, ZonaTableRep}
-import dbmanagment.implicitsGeneric.BrandsZona
+import dbmanagment.CaseClassDB.{Giorno, Zona}
+import dbmanagment.ImplicitCrud._
+import dbmanagment.ImplicitCrudG._
+
 import scala.concurrent.ExecutionContext.Implicits.global
-import dbmanagment.implicitsGeneric2.BrandsGiorno
+import scala.util.{Failure, Success}
 object InsertDataBase {
+  var id = 0
    def insertZona()= {
     try {
-      implicit val implicitStringOrdering: GenericCRUD[ZonaTableRep,Zona] = BrandsZona
-
-      import ZonaTable._
       val s = Zona("Giannis")
-      val f = BrandsZona.create(s)
-      f onComplete { posts =>
-        for (post <- posts) println(post)
+      insert(s) onComplete { posts =>
+        for (post <- posts) {id = post;println(post)}
       }
-       insertGiorno()
-     /* Await.result(db.run(DBIO.seq(
-        zone += ZonaSet("Gianni"),
-        zone += ZonaSet("Fabian"),
-        zone += ZonaSet("Francesco")
-      )).flatMap { _ =>
-        //#readall
-        // Read all coffees and print them to the console
-        println("Zona:")
-
-        db.run(zone.result).map(_.foreach(t =>
-          println("  " + t.IdZone + "\t" + t.Zone)
-        ))
-      }, Duration.Inf)
-*/
-    // Equivalent SQL code:
-    // select COF_NAME, SUP_ID, PRICE, SALES, TOTAL from COFFEES
-    //#readall
-
-   } finally  println("insertZona:")
+   }
   }
-  def insertGiorno(): Unit ={
-    implicit val implicitStringOrdering2: GenericCRUD[GiornoTableRep,Giorno] = BrandsGiorno
-    val ss = Giorno(11,"Lunedi")
-    val ff = BrandsGiorno.create(ss)
-    ff onComplete { posts =>
+  def selectAllZona(): Unit ={
+    val s = Zona
+    selectAll[Zona] onComplete { posts =>
+      for (post <- posts) println(post)
+    }
+  }
+  def selectZona(): Unit ={
+    val s = Zona("",Some(id))
+     select(s)  onComplete { posts =>
+       for (post <- posts) println(post)
+     }
+  }
+  def updateZona(): Unit ={
+    val s = Zona("el mejor es Fabian :)",Some(id))
+    update(s).onComplete {
+      case Success(x) => println(x)
+      case Failure(x) => println(x)
+    }
+  }
+  def deleteZona(): Unit ={
+    val s = Zona("",Some(id))
+    delete(s)  onComplete { posts =>
       for (post <- posts) println(post)
     }
   }
