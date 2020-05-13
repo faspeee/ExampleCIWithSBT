@@ -6,6 +6,7 @@ import controller.ZonaController
 import dbmanagment.CaseClassDB.Zona
 import javafx.stage.Stage
 import scalafx.application.JFXApp.PrimaryStage
+import scalafx.application.Platform
 import view.components.ZonaBox
 
 trait ZonaView{
@@ -19,11 +20,8 @@ trait ZonaBoxObserver{
 object ZonaView {
   private class ZonaViewImpl extends AbstractActiveScene with ZonaView with ZonaBoxObserver {
     private val myController = ZonaController()
-    private val center = ZonaBox()
     override def initialize(location: URL, resources: ResourceBundle): Unit = {
       myController.setView(this)
-      center.setObserver(this)
-      pane.setCenter(center.pane())
       myController.loadZones()
     }
 
@@ -33,8 +31,14 @@ object ZonaView {
     override def insert(nome: String): Unit =
       myController.insertZone(nome)
 
-    override def setZones(zones:List[Zona]): Unit =
-      center.setZone(zones)
+    override def setZones(zones:List[Zona]): Unit = {
+      Platform.runLater(()=>{
+        val center = ZonaBox()
+        center.setObserver(this)
+        center.setZone(zones)
+        pane.setCenter(center.pane())
+      })
+    }
 
   }
 
