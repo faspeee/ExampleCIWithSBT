@@ -3,10 +3,12 @@ package controller
 import java.net.URL
 import java.util.ResourceBundle
 
+import javafx.application.Platform
 import javafx.fxml.{FXML, FXMLLoader, Initializable}
 import javafx.scene.{Parent, Scene}
 import javafx.scene.control.{Button, TextField}
 import javafx.stage.Stage
+
 import scala.language.postfixOps
 import setting.{InsertDataBase, SelectDataBase}
 
@@ -36,7 +38,7 @@ object HomeController extends HomeController{
       InsertDataBase.insertZona()
     })
     select.setOnAction(e => {
-      InsertDataBase.selectZona()
+      InsertDataBase.selectAllZona()
     })
     update.setOnAction(e => {
       InsertDataBase.updateZona()
