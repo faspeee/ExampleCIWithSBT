@@ -2,10 +2,13 @@ package view.scenes
 
 import java.net.URL
 import java.util.ResourceBundle
+
 import javafx.fxml.{FXML, Initializable}
+import javafx.scene.control.Button
 import javafx.scene.layout.BorderPane
 import javafx.stage.Stage
-import view.loaders.SceneLoader
+import view.components.TopBar
+import view.loaders.{ComponentLoader, SceneLoader}
 
 /**
  * Rappresentazione della scena attiva su schermo
@@ -45,5 +48,24 @@ abstract class AbstractActiveScene extends Initializable with ActiveScene {
     stage.hide
     previousStage.get.show
   }
+}
 
+abstract class AbstractActiveSceneWithTop extends AbstractActiveScene {
+
+  override def apply(primaryStage: Stage, oldStage: Option[Stage]): Unit = {
+    super.apply(primaryStage, oldStage)
+    val top = TopBar()
+    top.setObserver(this)
+    pane.setTop(top.pane())
+  }
+
+  def risorse() = {
+    stage.hide
+    RisorseUmaneView(new Stage,Some(stage))
+  }
+
+  def zone(): Unit ={
+    stage.hide
+    ZonaView(new Stage,Some(stage))
+  }
 }

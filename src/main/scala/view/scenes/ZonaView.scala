@@ -18,7 +18,7 @@ trait ZonaBoxObserver{
 }
 
 object ZonaView {
-  private class ZonaViewImpl extends AbstractActiveScene with ZonaView with ZonaBoxObserver {
+  private class ZonaViewImpl extends AbstractActiveSceneWithTop with ZonaView with ZonaBoxObserver {
     private val myController = ZonaController()
     override def initialize(location: URL, resources: ResourceBundle): Unit = {
       myController.setView(this)
