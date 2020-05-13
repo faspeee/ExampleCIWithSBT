@@ -1,5 +1,7 @@
 package setting
-import dbmanagment.CaseClassDB.{Giorno, Zona}
+import java.sql.Date
+
+import dbmanagment.CaseClassDB.{Giorno, Persona, Terminale, Zona}
 import dbmanagment.ImplicitCrud._
 import dbmanagment.ImplicitCrudG._
 
@@ -8,16 +10,36 @@ import scala.util.{Failure, Success}
 object InsertDataBase {
   var id = 0
    def insertZona()= {
-    try {
       val s = Zona("Giannis")
       insert(s) onComplete { posts =>
         for (post <- posts) {id = post;println(post)}
       }
-   }
+  }
+  def insertPersona()= {
+    val millis = System.currentTimeMillis
+    val persona = Persona("Gianni","Speciale",new java.sql.Date(millis),"+393270176439",10,Some(id))
+    insert(persona) onComplete { result =>
+      for (post <- result) {id = post;println(post)}
+    }
+  }
+  def insertTerminale()= {
+    val persona = Terminale("Fabian",111)
+    insert(persona) onComplete { result =>
+      for (post <- result) {
+        id = post;println(post)
+        insertPersona()
+      }
+    }
   }
   def selectAllZona(): Unit ={
     val s = Zona
     selectAll[Zona] onComplete { posts =>
+      for (post <- posts) println(post)
+    }
+  }
+  def removeAllZona(): Unit ={
+    val s = List(Zona("",Some(110)),Zona("",Some(109)))
+    deleteAll(s) onComplete { posts =>
       for (post <- posts) println(post)
     }
   }
