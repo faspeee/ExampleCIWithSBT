@@ -35,7 +35,7 @@ object HomeController extends HomeController{
   }
   override def initialize(location: URL, resources: ResourceBundle): Unit = {
     insert.setOnAction(e => {
-      InsertDataBase.insertZona()
+      InsertDataBase.insertTerminale()
     })
     select.setOnAction(e => {
       InsertDataBase.selectAllZona()

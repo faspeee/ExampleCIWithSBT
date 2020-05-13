@@ -14,7 +14,6 @@ object Reflection {
 }
 abstract class GenericTable[T](tag: Tag, name: String,nameId:String) extends Table[T](tag, name) {
   def id = column[Int](nameId, O.PrimaryKey, O.AutoInc)
-
 }
 abstract class GenericTableQuery[T, C <: AbstractTable[T]: runtime.TypeTag] {
   import Reflection._
@@ -34,6 +33,8 @@ trait GenericCRUD[T,C <: GenericTable[T]] extends GenericTableQuery[T,C] with DB
   def update(c: T): Future[Int] =run(table.insertOrUpdate(c))
 }
 object implicitsGeneric{
+
+  import slick.jdbc.SQLServerProfile.api._
   case class Brands[T,C<: GenericTable[T]:runtime.TypeTag]() extends GenericCRUD[T,C] {
     override def selectAll: Future[List[T]] = super.selectAll
     override def select(id: Int): Future[Option[T]] = super.select(id)
@@ -42,5 +43,6 @@ object implicitsGeneric{
     override def delete(id: Int): Future[Int] = super.delete(id)
     override def deleteAll(id: List[Int]): Future[Int] = super.deleteAll(id)
     override def update(elem: T): Future[Int] = super.update(elem)
+
   }
 }
