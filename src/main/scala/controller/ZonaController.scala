@@ -36,9 +36,8 @@ object ZonaController {
     }
 
     override def loadZones(): Unit = {
-      var list:List[Zona] = List()
       selectAll[Zona].onComplete{
-        case Success(x) => x.foreach(t => list = t.asInstanceOf[Zona] :: list); myView.setZones(list)
+        case Success(x) => myView.setZones(x)
         case _ => println("error")
       }
     }

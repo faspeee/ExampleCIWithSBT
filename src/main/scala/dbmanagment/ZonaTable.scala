@@ -5,9 +5,9 @@ import CaseClassDB._
 import scala.concurrent.Future
 object ZonaTable{
   class ZonaTableRep(tag: Tag) extends GenericTable[Zona](tag, "ZonaSets","IdZona") {
-    def zona = column[String]("Zone")
+    def Zone = column[String]("Zone")
     // Every table needs a * projection with the same type as the table's type parameter
-    def * = ( zona,id.?).mapTo[Zona]
+    def * = ( Zone,id.?).mapTo[Zona]
   }
 
 }
