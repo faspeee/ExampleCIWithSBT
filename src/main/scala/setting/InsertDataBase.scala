@@ -1,6 +1,7 @@
 package setting
 import dbmanagment.CaseClassDB.{Giorno, Zona}
-import dbmanagment.GenericCrudClass._
+import dbmanagment.ImplicitCrud._
+import dbmanagment.ImplicitCrudG._
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.util.{Failure, Success}
@@ -16,7 +17,7 @@ object InsertDataBase {
   }
   def selectAllZona(): Unit ={
     val s = Zona
-    selectAll(s)  onComplete { posts =>
+    selectAll[Zona] onComplete { posts =>
       for (post <- posts) println(post)
     }
   }
