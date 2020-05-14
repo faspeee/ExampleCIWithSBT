@@ -5,12 +5,13 @@ import java.util.ResourceBundle
 
 import dbmanagment.CaseClassDB.Zona
 import javafx.fxml.FXML
-import javafx.scene.control.{Button, TextField}
+import javafx.scene.control.{Button, ProgressIndicator, TextField}
 import javafx.scene.layout.VBox
 import view.scenes.ZonaBoxObserver
 
 trait ZonaBox extends Component[ZonaBoxObserver]{
   def setZone(zone:List[Zona])
+  def loading()
 }
 
 trait ZoneHBoxObserver{
@@ -49,6 +50,10 @@ object ZonaBox {
         case true => toRemove = toRemove filter(_!=id)
         case _ => toRemove = toRemove + id
       }
+    }
+
+    override def loading(): Unit = {
+      zonaBox.getChildren.add(2, new ProgressIndicator())
     }
   }
 }

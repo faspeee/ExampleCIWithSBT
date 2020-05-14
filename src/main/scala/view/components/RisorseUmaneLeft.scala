@@ -28,6 +28,7 @@ object RisorseUmaneLeft{
     override def initialize(location: URL, resources: ResourceBundle): Unit = {
       btnAssumi.setOnAction(_ => observer loadAssumi)
       btnLicenzia.setOnAction(_ => observer.loadLicenzia)
+      btnRecuperoPass.setOnAction(_=> observer.loadTestTurno)
     }
   }
 }

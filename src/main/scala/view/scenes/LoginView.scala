@@ -60,8 +60,7 @@ object LoginView {
       center.errorLog()
 
     override def goodLogin(): Unit ={
-      stage.hide
-      RisorseUmaneView(new Stage(),Option(stage))
+      RisorseUmaneView(stage,Option(stage.getScene))
     }
   }
 
