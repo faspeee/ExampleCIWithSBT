@@ -2,7 +2,6 @@ package dbmanagment
 import slick.basic.DatabaseConfig
 import slick.dbio.{DBIOAction, NoStream}
 import slick.jdbc.JdbcProfile
-import slick.lifted.TableQuery
 trait DBS {
   private val dbCo:DatabaseConfig[JdbcProfile] = DatabaseConfig.forConfig("sqlserver")
   val database = dbCo.db
