@@ -12,6 +12,6 @@ object PersonaTable{
     def numTelefono = column[String]("NumTelefono")
     def ruolo = column[Int]("Ruolo")
     def * = (nome, cognome,dataNascita,numTelefono,ruolo,terminaleId.?,id.?).mapTo[Persona]
-    def terminale = foreignKey("Terminale_IdTerminale", terminaleId, TableQuery[TerminaleTableRep])(_.id, onUpdate=ForeignKeyAction.Restrict, onDelete=ForeignKeyAction.Cascade)
+    def terminale = foreignKey("Terminale_IdTerminale", terminaleId, TableQuery[TerminaleTableRep])(_.id, onUpdate=ForeignKeyAction.Restrict, onDelete=ForeignKeyAction.SetNull)
   }
 }

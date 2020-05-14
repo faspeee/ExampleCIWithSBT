@@ -40,7 +40,7 @@ object HomeController extends HomeController{
  
     })
     select.setOnAction(e => {
-      InsertDataBase.selectAllZona()
+      InsertDataBase.selectFilter()
     })
     update.setOnAction(e => {
       InsertDataBase.updateZona()

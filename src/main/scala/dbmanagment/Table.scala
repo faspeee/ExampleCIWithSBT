@@ -19,8 +19,8 @@ object Operation{
 }
 object implicits {
   import ZonaTable._
-  implicit object Insert extends GenericCRUD[Zona,ZonaTableRep]  with Operation[Zona]{
-    override def create[A](element: Zona): Future[Int] = insert(element)
+  implicit object Insert extends  Operation[Zona]{
+    override def create[A](element: Zona): Future[Int] = ???
     override def read[F](element: F):Future[Option[F]] = ??? //select(element.asInstanceOf[Zona].IdZone.get)
     override def update(element: Zona): Future[Int] = Brands().update(element)
     override def delete(element: Zona) : Future[Int] = Brands().delete(element.IdZone.get)
