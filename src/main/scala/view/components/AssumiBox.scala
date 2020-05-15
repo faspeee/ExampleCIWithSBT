@@ -31,7 +31,7 @@ object AssumiBox{
     @FXML
     var giorno2: ComboBox[String] = _
     @FXML
-    var terminale: ComboBox[String] = _
+    var terminale: ComboBox[Terminale] = _
     @FXML
     var numero: TextField = _
     @FXML

@@ -1,3 +1,5 @@
 .root{
-    -fx-background-color: aqua;
+    -fx-background-color: khaki;
+    -fx-pref-width: 500;
+    -fx-pref-height: 500;
 }
