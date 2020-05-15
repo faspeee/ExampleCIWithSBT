@@ -1,11 +1,13 @@
-package dbmanagment
-import dbmanagment.CaseClassDB.{Giorno, Persona, Terminale, Turno, Zona}
-import dbmanagment.GiornoTable.GiornoTableRep
-import dbmanagment.PersonaTable.PersonaTableRep
-import dbmanagment.TerminaleTable.TerminaleTableRep
-import dbmanagment.TurnoTable.TurnoTableRep
-import dbmanagment.ZonaTable.ZonaTableRep
-import dbmanagment.implicitsGeneric.Brands
+package dbmanagment.operation
+
+import dbmanagment.setting.implicitsGeneric.Brands
+import dbmanagment.table.GiornoTable.GiornoTableRep
+import dbmanagment.table.PersonaTable.PersonaTableRep
+import dbmanagment.table.TerminaleTable.TerminaleTableRep
+import dbmanagment.table.TurnoTable.TurnoTableRep
+import dbmanagment.table.ZonaTable.ZonaTableRep
+import utils.caseclass.CaseClassDB._
+
 import scala.concurrent.Future
 trait Crud[A]{
   def select(element:Int):Future[Option[A]]
@@ -21,11 +23,11 @@ object ImplicitCrudG {
     protected def SelectType: Brands[Zona, ZonaTableRep] =Brands[Zona,ZonaTableRep]()
     override def insert(element: Zona):Future[Int] = SelectType.insert(element)
     override def select(element: Int): Future[Option[Zona]] = SelectType.select(element)
-    override def delete(element: Zona): Future[Int] = SelectType.delete(element.IdZone.get)
+    override def delete(element: Zona): Future[Int] = SelectType.delete(element.idZone.get)
     override def update(element: Zona): Future[Int] = SelectType.update(element)
     override def selectAll: Future[List[Zona]] = SelectType.selectAll
     override def insertAll(element: List[Zona]): Future[List[Int]] = SelectType.insertAll(element)
-    override def deleteAll(element: List[Zona]): Future[Int] = SelectType.deleteAll(element.map(t=>t.IdZone.get))
+    override def deleteAll(element: List[Zona]): Future[Int] = SelectType.deleteAll(element.map(t=>t.idZone.get))
 
   }
   implicit object CrudTurno extends Crud[Turno] {
@@ -43,30 +45,30 @@ object ImplicitCrudG {
     protected def SelectType: Brands[Giorno, GiornoTableRep] =Brands[Giorno,GiornoTableRep]()
     override def insert(element: Giorno):Future[Int]  =  SelectType.insert(element)
     override def select(element: Int): Future[Option[Giorno]] = SelectType.select(element)
-    override def delete(element: Giorno): Future[Int] = SelectType.delete(element.IdGiorno.get)
+    override def delete(element: Giorno): Future[Int] = SelectType.delete(element.idGiorno.get)
     override def update(element: Giorno): Future[Int] = SelectType.update(element)
     override def selectAll: Future[List[Giorno]] = SelectType.selectAll
     override def insertAll(element: List[Giorno]): Future[List[Int]] = SelectType.insertAll(element)
-    override def deleteAll(element: List[Giorno]): Future[Int] = SelectType.deleteAll(element.map(t=>t.IdGiorno.get))
+    override def deleteAll(element: List[Giorno]): Future[Int] = SelectType.deleteAll(element.map(t=>t.idGiorno.get))
   }
    implicit object CrudPersona extends Crud[Persona] {
     protected def SelectType: Brands[Persona, PersonaTableRep] =Brands[Persona,PersonaTableRep]()
     override def insert(element: Persona):Future[Int]  =  SelectType.insert(element)
     override def select(element: Int): Future[Option[Persona]] = SelectType.select(element)
-    override def delete(element: Persona): Future[Int] = SelectType.delete(element.Matricola.get)
+    override def delete(element: Persona): Future[Int] = SelectType.delete(element.matricola.get)
     override def update(element: Persona): Future[Int] = SelectType.update(element)
     override def selectAll: Future[List[Persona]] = SelectType.selectAll
     override def insertAll(element: List[Persona]): Future[List[Int]] = SelectType.insertAll(element)
-    override def deleteAll(element: List[Persona]): Future[Int] = SelectType.deleteAll(element.map(t=>t.Matricola.get))
+    override def deleteAll(element: List[Persona]): Future[Int] = SelectType.deleteAll(element.map(t=>t.matricola.get))
   }
   implicit object CrudTerminale extends Crud[Terminale] {
     protected def SelectType: Brands[Terminale, TerminaleTableRep] =Brands[Terminale,TerminaleTableRep]()
     override def insert(element: Terminale):Future[Int]  =  SelectType.insert(element)
     override def select(element: Int): Future[Option[Terminale]] = SelectType.select(element)
-    override def delete(element: Terminale): Future[Int] = SelectType.delete(element.IdTerminale.get)
+    override def delete(element: Terminale): Future[Int] = SelectType.delete(element.idTerminale.get)
     override def update(element: Terminale): Future[Int] = SelectType.update(element)
     override def selectAll: Future[List[Terminale]] = SelectType.selectAll
     override def insertAll(element: List[Terminale]): Future[List[Int]] = SelectType.insertAll(element)
-    override def deleteAll(element: List[Terminale]): Future[Int] = SelectType.deleteAll(element.map(t=>t.IdTerminale.get))
+    override def deleteAll(element: List[Terminale]): Future[Int] = SelectType.deleteAll(element.map(t=>t.idTerminale.get))
   }
 }

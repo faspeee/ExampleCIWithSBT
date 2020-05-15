@@ -3,7 +3,7 @@ package view.components
 import java.net.URL
 import java.util.ResourceBundle
 
-import dbmanagment.CaseClassDB.Zona
+import utils.caseclass.CaseClassDB.Zona
 import javafx.fxml.FXML
 import javafx.scene.control.{CheckBox, Label}
 
@@ -22,8 +22,8 @@ object ZoneHBox {
     var selezionato: CheckBox = _
 
     override def setZona(zona: Zona): Unit = {
-      id.setText(zona.IdZone.get.toString)
-      nomeZona.setText(zona.Zones)
+      id.setText(zona.idZone.get.toString)
+      nomeZona.setText(zona.zones)
     }
 
     override def initialize(location: URL, resources: ResourceBundle): Unit =

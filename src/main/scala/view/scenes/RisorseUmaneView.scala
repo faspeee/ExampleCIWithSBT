@@ -4,7 +4,7 @@ import java.net.URL
 import java.util.ResourceBundle
 
 import controller.RisorseUmaneController
-import dbmanagment.CaseClassDB.{Persona, Terminale}
+import utils.caseclass.CaseClassDB.{Persona, Terminale}
 import javafx.application.Platform
 import javafx.scene.Scene
 import javafx.stage.Stage

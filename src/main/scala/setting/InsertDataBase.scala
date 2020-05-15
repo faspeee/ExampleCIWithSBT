@@ -1,9 +1,9 @@
 package setting
 import java.sql.Date
 
-import dbmanagment.CaseClassDB.{Giorno, Persona, Terminale, Zona}
-import dbmanagment.ImplicitCrudG.CrudPersona
-import dbmanagment.PersonaOperation
+import utils.caseclass.CaseClassDB.{Giorno, Persona, Terminale, Zona}
+import dbmanagment.operation.ImplicitCrudG.CrudPersona
+import dbmanagment.operation.PersonaOperation
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.util.{Failure, Success}
@@ -42,6 +42,10 @@ object InsertDataBase {
     // selectAll[Zona] onComplete { posts =>
     //   for (post <- posts) println(post)
     // }
+  }
+  def monadicJoin(): Unit ={
+    val s = Zona
+    PersonaOperation.monadicInnerJoin()
   }
   def removeAllZona(): Unit ={
     val s = List(Zona("",Some(110)),Zona("",Some(109)))
