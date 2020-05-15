@@ -3,9 +3,8 @@ import dbmanagment.operation.ImplicitCrudG.CrudPersona
 import dbmanagment.setting.implicitsGeneric.Brands
 import dbmanagment.table.PersonaTable.PersonaTableRep
 import dbmanagment.table.TerminaleTable.TerminaleTableRep
-import dbmanagment.table.ZonaTable.ZonaTableRep
 import slick.jdbc.SQLServerProfile.api._
-import utils.caseclass.CaseClassDB.{Persona, Terminale, Zona}
+import utils.caseclass.CaseClassDB.Persona
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.{Future, Promise}
@@ -31,17 +30,16 @@ object PersonaOperation extends  PersonaOperation{
       result=>promiseFilterBySurname.success(result.get)
     }
   }
-
-  override def monadicInnerJoin(): Unit = {
+   override def monadicInnerJoin(): Unit = {
     val monadicInnerJoin = for {
-      c <- Brands[Persona,PersonaTableRep].table
-      s <- Brands[Terminale,TerminaleTableRep].table
-      s2 <- Brands[Zona,ZonaTableRep].table
-      if c.id === s.id &&  s.id === s2.id
-    } yield (c.cognome, s.nomeTerminale,s2.Zones)
+     c <- TableQuery[PersonaTableRep]
+     s <- TableQuery[TerminaleTableRep]
+     if c.id===s.id
+    } yield (c.nome,s.nomeTerminale)
      SelectType.execJoin(monadicInnerJoin)  onComplete(t=>{
         println(t)
       })
 
   }
+
 }

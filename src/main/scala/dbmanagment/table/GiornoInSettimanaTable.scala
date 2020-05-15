@@ -1,11 +1,11 @@
 package dbmanagment.table
 import dbmanagment.setting.GenericTable
 import dbmanagment.table.GiornoTable.GiornoTableRep
-import dbmanagment.table.SettimaneTable.SettimaneTableRep
+import dbmanagment.table.SettimanaTable.SettimanaTableRep
 import dbmanagment.table.TurnoTable.TurnoTableRep
 import slick.jdbc.SQLServerProfile.api._
 import slick.lifted.{ForeignKeyQuery, ProvenShape}
-import utils.caseclass.CaseClassDB.{Giorno, GiornoInSettimana, Settimane, Turno}
+import utils.caseclass.CaseClassDB.{Giorno, GiornoInSettimana, Settimana, Turno}
 
 object GiornoInSettimanaTable {
   class GiornoInSettimanaTableRep(tag: Tag) extends GenericTable[GiornoInSettimana](tag, "GiornoInSettimanaSets","IdSettimana") {
@@ -16,7 +16,7 @@ object GiornoInSettimanaTable {
     override def * : ProvenShape[GiornoInSettimana] = (giornoId,turnoId,parametriId,settimanaId,id.?).mapTo[GiornoInSettimana]
     def giorno: ForeignKeyQuery[GiornoTableRep, Giorno] = foreignKey("GiornoIdGiorno", giornoId, TableQuery[GiornoTableRep])(_.id, onUpdate=ForeignKeyAction.Restrict, onDelete=ForeignKeyAction.Cascade)
     def turno: ForeignKeyQuery[TurnoTableRep, Turno] = foreignKey("Turno_IdTurno", turnoId, TableQuery[TurnoTableRep])(_.id, onUpdate=ForeignKeyAction.Restrict, onDelete=ForeignKeyAction.Cascade)
-    def settimana: ForeignKeyQuery[SettimaneTableRep, Settimane] = foreignKey("SettimaneIdSettimane", settimanaId, TableQuery[SettimaneTableRep])(_.id, onUpdate=ForeignKeyAction.Restrict, onDelete=ForeignKeyAction.Cascade)
+    def settimana: ForeignKeyQuery[SettimanaTableRep, Settimana] = foreignKey("SettimaneIdSettimane", settimanaId, TableQuery[SettimanaTableRep])(_.id, onUpdate=ForeignKeyAction.Restrict, onDelete=ForeignKeyAction.Cascade)
 
   }
 }
