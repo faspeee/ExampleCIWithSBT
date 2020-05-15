@@ -4,6 +4,7 @@ import java.net.URL
 import java.util.ResourceBundle
 
 import javafx.fxml.{FXML, Initializable}
+import javafx.scene.Scene
 import javafx.scene.control.Button
 import javafx.scene.layout.BorderPane
 import javafx.stage.Stage
@@ -32,40 +33,37 @@ abstract class AbstractActiveScene extends Initializable with ActiveScene {
   /**
    * Stage precedente, Opzionale
    */
-  protected var previousStage:Option[Stage] = _
+  protected var previousScene:Option[Scene] = _
   /**
    * Stage attuale
    */
   protected var stage:Stage = _
 
-  def apply(primaryStage: Stage, oldStage:Option[Stage] = None){
+  def apply(primaryStage: Stage, oldScene:Option[Scene] = None){
     stage = primaryStage
-    previousStage = oldStage
+    previousScene = oldScene
     SceneLoader.loadScene(primaryStage,this, "/fxml/BaseView.fxml")
   }
 
   override def goBack(): Unit = {
-    stage.hide
-    previousStage.get.show
+    stage.setScene(previousScene.get)
   }
 }
 
 abstract class AbstractActiveSceneWithTop extends AbstractActiveScene {
 
-  override def apply(primaryStage: Stage, oldStage: Option[Stage]): Unit = {
-    super.apply(primaryStage, oldStage)
+  override def apply(primaryStage: Stage, oldScene: Option[Scene]): Unit = {
+    super.apply(primaryStage, oldScene)
     val top = TopBar()
     top.setObserver(this)
     pane.setTop(top.pane())
   }
 
   def risorse() = {
-    stage.hide
-    RisorseUmaneView(new Stage,Some(stage))
+    RisorseUmaneView(stage,Some(stage.getScene))
   }
 
   def zone(): Unit ={
-    stage.hide
-    ZonaView(new Stage,Some(stage))
+    ZonaView(stage,Some(stage.getScene))
   }
 }

@@ -39,7 +39,6 @@ object LicenziaBox{
     }
 
     override def select(id: Int): Unit = {
-      println(id)
       daLicenziare.contains(id) match {
         case true => daLicenziare = daLicenziare filter(_ != id)
         case _ => daLicenziare = daLicenziare + id

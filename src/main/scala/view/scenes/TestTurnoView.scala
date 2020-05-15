@@ -5,6 +5,7 @@ import java.util.ResourceBundle
 
 import controller.TestTurnoController
 import javafx.fxml.Initializable
+import javafx.scene.Scene
 import javafx.stage.Stage
 import view.components.TopHBox
 
@@ -33,5 +34,5 @@ object TestTurnoView {
     }
   }
 
-  def apply(primaryStage:Stage,oldStage:Option[Stage]) = new TestTurnoViewImpl()(primaryStage,oldStage)
+  def apply(primaryStage:Stage,oldStage:Option[Scene]) = new TestTurnoViewImpl()(primaryStage,oldStage)
 }

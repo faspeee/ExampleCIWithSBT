@@ -3,9 +3,10 @@ import java.net.URL
 import java.util.ResourceBundle
 
 import controller.ZonaController
-import utils.caseclass.CaseClassDB.Zona
+import utils.caseclass.CaseClassDB.Zona 
+import javafx.scene.Scene
+import javafx.scene.control.ProgressIndicator
 import javafx.stage.Stage
-import scalafx.application.JFXApp.PrimaryStage
 import scalafx.application.Platform
 import view.components.ZonaBox
 
@@ -22,6 +23,9 @@ object ZonaView {
     private val myController = ZonaController()
     override def initialize(location: URL, resources: ResourceBundle): Unit = {
       myController.setView(this)
+      val center = ZonaBox()
+      center.loading()
+      pane.setCenter(center.pane())
       myController.loadZones()
     }
 
@@ -35,12 +39,11 @@ object ZonaView {
       Platform.runLater(()=>{
         val center = ZonaBox()
         center.setObserver(this)
-        center.setZone(zones)
         pane.setCenter(center.pane())
+        center.setZone(zones)
       })
     }
-
   }
 
-  def apply(primaryStage: Stage, oldStage:Option[Stage]) = new ZonaViewImpl()(primaryStage,oldStage)
+  def apply(primaryStage: Stage, oldScene:Option[Scene]) = new ZonaViewImpl()(primaryStage,oldScene)
 }

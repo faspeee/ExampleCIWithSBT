@@ -6,6 +6,7 @@ import java.util.ResourceBundle
 import controller.RisorseUmaneController
 import utils.caseclass.CaseClassDB.{Persona, Terminale}
 import javafx.application.Platform
+import javafx.scene.Scene
 import javafx.stage.Stage
 import view.components.{AssumiBox, LicenziaBox, RisorseUmaneLeft}
 
@@ -21,13 +22,14 @@ trait LicenziaBoxObserver{
 trait RisorseUmaneLeftObserver{
   def loadAssumi()
   def loadLicenzia()
+  def loadTestTurno()
 }
 
 trait AssumiBoxObserver{
   def assumi(assumi:Persona)
 }
 
-object RisorseUmaneView{
+object  RisorseUmaneView{
 
   private class RisorseUmaneViewImpl extends AbstractActiveSceneWithTop with RisorseUmaneView with RisorseUmaneLeftObserver with AssumiBoxObserver with LicenziaBoxObserver {
     private val myController = RisorseUmaneController()
@@ -59,7 +61,7 @@ object RisorseUmaneView{
         licenzia.setLista(persone)
         pane.setCenter(licenzia.pane)
       })
-          }
+    }
 
     override def assumiToLoad(terminali: List[Terminale]): Unit = {
       Platform.runLater(()=>{
@@ -69,7 +71,10 @@ object RisorseUmaneView{
         pane.setCenter(assumi.pane)
       })
     }
+
+    override def loadTestTurno(): Unit =
+      TestTurnoView(stage,Option(stage.getScene))
   }
 
-  def apply(primaryStage:Stage, oldStage:Option[Stage]) = new RisorseUmaneViewImpl()(primaryStage,oldStage)
+  def apply(primaryStage:Stage, oldScene:Option[Scene]) = new RisorseUmaneViewImpl()(primaryStage,oldScene)
 }
