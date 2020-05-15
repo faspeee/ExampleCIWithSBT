@@ -4,30 +4,34 @@ import java.net.URL
 import java.util.ResourceBundle
 
 import controller.RisorseUmaneController
+import utils.caseclass.CaseClassDB.{Persona, Terminale}
+import javafx.application.Platform
+import javafx.scene.Scene
 import javafx.stage.Stage
-import mock.Conducente
 import view.components.{AssumiBox, LicenziaBox, RisorseUmaneLeft}
 
 trait RisorseUmaneView {
-  def refreshLicenzia()
+  def assumiToLoad(terminali:List[Terminale])
+  def licenziaToLoad(persone:List[Persona])
 }
 
 trait LicenziaBoxObserver{
-  def licenzia(ids:Set[String])
+  def licenzia(ids:Set[Int])
 }
 
 trait RisorseUmaneLeftObserver{
   def loadAssumi()
   def loadLicenzia()
+  def loadTestTurno()
 }
 
 trait AssumiBoxObserver{
-  def assumi(assumi:Conducente)
+  def assumi(assumi:Persona)
 }
 
-object RisorseUmaneView{
+object  RisorseUmaneView{
 
-  private class RisorseUmaneViewImpl extends AbstractActiveScene with RisorseUmaneView with RisorseUmaneLeftObserver with AssumiBoxObserver with LicenziaBoxObserver {
+  private class RisorseUmaneViewImpl extends AbstractActiveSceneWithTop with RisorseUmaneView with RisorseUmaneLeftObserver with AssumiBoxObserver with LicenziaBoxObserver {
     private val myController = RisorseUmaneController()
 
     override def initialize(location: URL, resources: ResourceBundle): Unit = {
@@ -38,26 +42,39 @@ object RisorseUmaneView{
     }
 
     override def loadAssumi(): Unit ={
-      val assumi = AssumiBox()
-      assumi.setObserver(this)
-      pane.setCenter(assumi.pane)
+      myController.loadAssumi()
     }
     override def loadLicenzia(): Unit = {
-      val licenzia = LicenziaBox()
-      licenzia.setObserver(this)
-      licenzia.setLista(myController.listaConducenti)
-      pane.setCenter(licenzia.pane)
+      myController.loadLicenzia()
     }
 
-    override def assumi(assunzione:Conducente): Unit =
-      myController.assumi(assunzione)
+    override def assumi(persona:Persona): Unit =
+      myController.assumi(persona)
 
-    override def licenzia(ids: Set[String]): Unit =
+    override def licenzia(ids: Set[Int]): Unit =
       myController.licenzia(ids)
 
-    override def refreshLicenzia(): Unit =
-      loadLicenzia()
+    override def licenziaToLoad(persone: List[Persona]): Unit = {
+      Platform.runLater(()=>{
+        val licenzia = LicenziaBox()
+        licenzia.setObserver(this)
+        licenzia.setLista(persone)
+        pane.setCenter(licenzia.pane)
+      })
+    }
+
+    override def assumiToLoad(terminali: List[Terminale]): Unit = {
+      Platform.runLater(()=>{
+        val assumi = AssumiBox()
+        assumi.setObserver(this)
+        assumi.setTerminali(terminali)
+        pane.setCenter(assumi.pane)
+      })
+    }
+
+    override def loadTestTurno(): Unit =
+      TestTurnoView(stage,Option(stage.getScene))
   }
 
-  def apply(primaryStage:Stage, oldStage:Option[Stage]) = new RisorseUmaneViewImpl()(primaryStage,oldStage)
+  def apply(primaryStage:Stage, oldScene:Option[Scene]) = new RisorseUmaneViewImpl()(primaryStage,oldScene)
 }

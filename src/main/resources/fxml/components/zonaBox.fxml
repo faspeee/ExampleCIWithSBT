@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.191" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ScrollPane layoutX="52.0" layoutY="89.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <content>
+            <VBox fx:id="zonaBox" alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="3000" spacing="5.0">
+               <children>
+                  <HBox alignment="TOP_CENTER" prefHeight="54.0" prefWidth="600.0" spacing="5.0">
+                     <children>
+                        <TextField fx:id="nomeZona" promptText="Nome Zona" />
+                        <Button fx:id="insert" mnemonicParsing="false" text="Inserisci Zona" />
+                     </children>
+                     <padding>
+                        <Insets top="15.0" />
+                     </padding>
+                  </HBox>
+                  <HBox alignment="TOP_CENTER" prefHeight="35.0" prefWidth="600.0" spacing="50.0">
+                     <children>
+                        <Label text="Id" />
+                        <Label text="Nome Zona" />
+                     </children>
+                  </HBox>
+                  <Button fx:id="remove" mnemonicParsing="false" text="Rimuovi Selezionati" />
+               </children>
+            </VBox>
+         </content>
+      </ScrollPane>
+   </children>
+</AnchorPane>

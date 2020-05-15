@@ -1,9 +1,6 @@
 package controller
-
 import java.net.URL
 import java.util.ResourceBundle
-
-import javafx.application.Platform
 import javafx.fxml.{FXML, FXMLLoader, Initializable}
 import javafx.scene.{Parent, Scene}
 import javafx.scene.control.{Button, TextField}
@@ -11,10 +8,6 @@ import javafx.stage.Stage
 
 import scala.language.postfixOps
 import setting.{InsertDataBase, SelectDataBase}
-
-import scala.concurrent.ExecutionContext.Implicits.global
-import scala.concurrent.Future
-import scala.util.{Failure, Success}
 abstract class  HomeController extends Initializable{
   @FXML var insert: Button = _
   @FXML var select: Button = _
@@ -35,10 +28,12 @@ object HomeController extends HomeController{
   }
   override def initialize(location: URL, resources: ResourceBundle): Unit = {
     insert.setOnAction(e => {
-
+   
+      InsertDataBase.insertTerminale()
+ 
     })
     select.setOnAction(e => {
-      InsertDataBase.selectAllZona()
+      InsertDataBase.monadicJoin()
     })
     update.setOnAction(e => {
       InsertDataBase.updateZona()

@@ -3,12 +3,12 @@ package view.components
 import java.net.URL
 import java.util.ResourceBundle
 
+import utils.caseclass.CaseClassDB.Persona
 import javafx.fxml.FXML
 import javafx.scene.control.{CheckBox, Label}
-import mock.Conducente
 
 trait ConducenteBox extends Component[ConducenteObserver]{
-  def setConducente(conducente:Conducente)
+  def setConducente(conducente:Persona)
 }
 
 object ConducenteBox{
@@ -28,15 +28,15 @@ object ConducenteBox{
     @FXML
     var selezionato: CheckBox = _
 
-    override def setConducente(conducente: Conducente): Unit = {
-      id.setText(conducente.telefono)
+    override def setConducente(conducente: Persona): Unit = {
+      id.setText(conducente.matricola.getOrElse(-1).toString)
       nome.setText(conducente.nome)
       cognome.setText(conducente.cognome)
-      contratto.setText(conducente.contratto)
-      data.setText(conducente.terminale)
+      contratto.setText(conducente.ruolo.toString)
+      data.setText(conducente.dataNascita.toString)
     }
 
     override def initialize(location: URL, resources: ResourceBundle): Unit =
-      selezionato.setOnAction(_ => observer.select(id.getText.toString))
+      selezionato.setOnAction(_ => observer.select(id.getText.toInt))
   }
 }

@@ -3,18 +3,18 @@ package view.components
 import java.net.URL
 import java.util.ResourceBundle
 
+import utils.caseclass.CaseClassDB.Persona
 import javafx.fxml.FXML
 import javafx.scene.control.Button
 import javafx.scene.layout.VBox
-import mock.Conducente
 import view.scenes.LicenziaBoxObserver
 
 trait LicenziaBox extends Component[LicenziaBoxObserver]{
-  def setLista(licenziandi:Set[Conducente])
+  def setLista(licenziandi:List[Persona])
 }
 
 trait ConducenteObserver{
-  def select(id:String)
+  def select(id:Int)
 }
 
 object LicenziaBox{
@@ -24,12 +24,12 @@ object LicenziaBox{
     var licenziaBox:VBox = _
     @FXML
     var benedici:Button = _
-    var daLicenziare:Set[String] = Set()
+    var daLicenziare:Set[Int] = Set()
 
     override def initialize(location: URL, resources: ResourceBundle): Unit =
       benedici.setOnAction(_ => observer.licenzia(daLicenziare))
 
-    override def setLista(licenziandi: Set[Conducente]): Unit = {
+    override def setLista(licenziandi: List[Persona]): Unit = {
       licenziandi.foreach(f => {
         val conducente = ConducenteBox()
         conducente.setObserver(this)
@@ -38,8 +38,7 @@ object LicenziaBox{
       })
     }
 
-    override def select(id: String): Unit = {
-      println(id)
+    override def select(id: Int): Unit = {
       daLicenziare.contains(id) match {
         case true => daLicenziare = daLicenziare filter(_ != id)
         case _ => daLicenziare = daLicenziare + id
