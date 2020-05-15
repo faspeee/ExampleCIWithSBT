@@ -2,6 +2,7 @@ package controller
 
 import utils.caseclass.CaseClassDB.Zona
 import dbmanagment.operation.ImplicitCrudG._
+import dbmanagment.operation.ZonaOperation
 import scalafx.application.Platform
 
 import scala.concurrent.duration.Duration
@@ -25,20 +26,20 @@ object ZonaController {
   private class ZonaControllerImpl() extends AbstractController[ZonaView] with ZonaController{
 
     override def insertZone(nome: String): Unit = {
-      //insert(Zona(nome)).andThen(_=> loadZones())
+      ZonaOperation.insert(Zona(nome)).andThen(_=> loadZones())
     }
 
     override def removeZones(ids: Set[Int]): Unit ={
       var list: List[Zona] = List()
       ids.foreach(x => list = Zona("",Some(x))::list)
-      // deleteAll(list).andThen(_=> loadZones())
+      ZonaOperation.deleteAll(list).andThen(_=> loadZones())
     }
 
     override def loadZones(): Unit = {
-      //  selectAll[Zona].onComplete{
-     //  case Success(x) => myView.setZones(x)
-     //  case _ => println("error")
-     //}
+      ZonaOperation.selectAll.onComplete{
+       case Success(x) => myView.setZones(x)
+       case _ => println("error")
+     }
     }
   }
 
