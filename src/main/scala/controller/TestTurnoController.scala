@@ -1,7 +1,7 @@
 package controller
 
-import dbmanagment.CaseClassDB.Turno
-import dbmanagment.TurnoTable
+import dbmanagment.table.TurnoTable
+import utils.caseclass.CaseClassDB.Turno
 import mock.MockTurno
 import view.scenes.TestTurnoView
 

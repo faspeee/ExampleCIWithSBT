@@ -1,5 +1,5 @@
 package dbmanagment
-import dbmanagment.GiornoTable.GiornoTableRep
+import dbmanagment.table.GiornoTable.GiornoTableRep
 import slick.jdbc.SQLServerProfile.api._
 import slick.lifted.{AbstractTable, TableQuery}
 import scala.reflect.runtime.{universe => ru}

@@ -3,7 +3,7 @@ import java.net.URL
 import java.util.ResourceBundle
 
 import controller.ZonaController
-import dbmanagment.CaseClassDB.Zona
+import utils.caseclass.CaseClassDB.Zona
 import javafx.stage.Stage
 import scalafx.application.JFXApp.PrimaryStage
 import scalafx.application.Platform

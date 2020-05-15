@@ -1,29 +1,12 @@
-package dbmanagment
+package dbmanagment.setting
 import slick.jdbc.SQLServerProfile.api._
-import slick.lifted.{AbstractTable, TableQuery}
-import scala.concurrent.Future
 import scala.concurrent.ExecutionContext.Implicits.global
+import scala.concurrent.Future
 import scala.reflect.runtime.{universe => runtime}
-object Reflection {
-  val runtimeMirror: runtime.Mirror = runtime.runtimeMirror(getClass.getClassLoader)
-  def getTypeTag[C: runtime.TypeTag]: runtime.TypeTag[C] = runtime.typeTag[C]
-  def createClassByConstructor[C: runtime.TypeTag](args: Any*): C =
-    runtimeMirror.reflectClass(getTypeTag[C].tpe.typeSymbol.asClass)
-      .reflectConstructor(runtime.typeOf[C].decl(runtime.termNames.CONSTRUCTOR)
-        .asMethod)(args: _*).asInstanceOf[C]
-}
-abstract class GenericTable[T](tag: Tag, name: String,nameId:String) extends Table[T](tag, name) {
-  def id = column[Int](nameId, O.PrimaryKey, O.AutoInc)
-}
-abstract class GenericTableQuery[T, C <: AbstractTable[T]: runtime.TypeTag] {
-  import Reflection._
-  // look at following code: Students, if you want to initialize Students
-  // you're gonna need a tag parameter, that's why we pass tag here
-  val table = TableQuery.apply(tag => createClassByConstructor[C](tag))
-}
+
 sealed trait GenericCRUD[T,C <: GenericTable[T]] extends GenericTableQuery[T,C] with DB[C,T] {
   val queryById = Compiled((id: Rep[Int]) => table.filter(_.id === id))
-  val queryByIdPlus =  (id: Seq[Int]) => table.filter(_.id.inSet(id))
+  val queryByIdPlus: Seq[Int] => Query[C, T, Seq] = (id: Seq[Int]) => table.filter(_.id.inSet(id))
   def select(id:Int): Future[Option[T]]
   def selectAll: Future[List[T]]
   def insert(c: T): Future[Int]
@@ -32,6 +15,7 @@ sealed trait GenericCRUD[T,C <: GenericTable[T]] extends GenericTableQuery[T,C] 
   def deleteAll(id:List[Int]): Future[Int]
   def update(c: T): Future[Int]
   def selectFilter(f:C=>Rep[Boolean]): Future[List[T]]
+  def execJoin[A,B](f:Query[A,B,Seq]): Future[List[B]]
 }
 object implicitsGeneric{
   case class Brands[T,C<: GenericTable[T]:runtime.TypeTag]() extends GenericCRUD[T,C] {
@@ -43,5 +27,6 @@ object implicitsGeneric{
     override def deleteAll(id: List[Int]): Future[Int] = super. run(queryByIdPlus(id).delete)
     override def update(elem: T): Future[Int] = super.run(table.insertOrUpdate(elem))
     override def selectFilter(f:C=>Rep[Boolean]): Future[List[T]] = super.run(table.withFilter(f).result).map(result=>result.toList)
+    override def execJoin[A,B](f:Query[A,B,Seq]): Future[List[B]] = super.run(f.result).map(result=>result.toList)
   }
 }

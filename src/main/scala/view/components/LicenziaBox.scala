@@ -3,7 +3,7 @@ package view.components
 import java.net.URL
 import java.util.ResourceBundle
 
-import dbmanagment.CaseClassDB.Persona
+import utils.caseclass.CaseClassDB.Persona
 import javafx.fxml.FXML
 import javafx.scene.control.Button
 import javafx.scene.layout.VBox
