@@ -18,3 +18,8 @@ libraryDependencies ++= Seq(
 libraryDependencies += "org.openjfx" % "javafx" % "11" pomOnly()
 // https://mvnrepository.com/artifact/org.openjfx/javafx-controls
 libraryDependencies += "org.openjfx" % "javafx-controls" % "11"
+
+//scala akka http
+libraryDependencies += "com.typesafe.akka" %% "akka-actor" % "2.5.31"
+libraryDependencies += "com.typesafe.akka" %% "akka-http"   % "10.1.12"
+libraryDependencies += "com.typesafe.akka" %% "akka-stream" % "2.5.26"
