@@ -3,7 +3,7 @@ package view.components
 import java.net.URL
 import java.util.ResourceBundle
 
-import dbmanagment.CaseClassDB.Persona
+import utils.caseclass.CaseClassDB.Persona
 import javafx.fxml.FXML
 import javafx.scene.control.{CheckBox, Label}
 
@@ -29,11 +29,11 @@ object ConducenteBox{
     var selezionato: CheckBox = _
 
     override def setConducente(conducente: Persona): Unit = {
-      id.setText(conducente.Matricola.getOrElse(-1).toString)
-      nome.setText(conducente.Nome)
-      cognome.setText(conducente.Cognome)
-      contratto.setText(conducente.Ruolo.toString)
-      data.setText(conducente.DataNascita.toString)
+      id.setText(conducente.matricola.getOrElse(-1).toString)
+      nome.setText(conducente.nome)
+      cognome.setText(conducente.cognome)
+      contratto.setText(conducente.ruolo.toString)
+      data.setText(conducente.dataNascita.toString)
     }
 
     override def initialize(location: URL, resources: ResourceBundle): Unit =

@@ -1,6 +1,7 @@
-package dbmanagment
-import scala.concurrent.{Future, Promise}
+package dbmanagment.operation
+
 import scala.concurrent.ExecutionContext.Implicits.global
+import scala.concurrent.{Future, Promise}
 abstract class OperationCrud[A](implicit crud:Crud[A]) {
   def select (element:Int):Future[Option[A]]= {
     val promiseInsert = Promise[Option[A]]

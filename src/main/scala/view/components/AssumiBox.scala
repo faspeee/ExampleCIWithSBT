@@ -3,7 +3,7 @@ package view.components
 import java.net.URL
 import java.util.ResourceBundle
 
-import dbmanagment.CaseClassDB.{Persona, Terminale}
+import utils.caseclass.CaseClassDB.{Persona, Terminale}
 import javafx.fxml.FXML
 import javafx.scene.control.{Button, ComboBox, TextField}
 import view.scenes.AssumiBoxObserver
@@ -48,11 +48,11 @@ object AssumiBox{
 
     override def setTerminali(l: List[Terminale]): Unit = {
       terminali = l
-      l.flatMap(t=>List(t.NomeTerminale)).foreach(t => terminale.getItems.add(t))
+      l.flatMap(t=>List(t.nomeTerminale)).foreach(t => terminale.getItems.add(t))
     }
 
     private def id():Option[Int] =
-      terminali.filter(_.NomeTerminale == terminale.getValue).head.IdTerminale
+      terminali.filter(_.nomeTerminale == terminale.getValue).head.idTerminale
 
   }
 }
