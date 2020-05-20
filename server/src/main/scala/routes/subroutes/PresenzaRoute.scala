@@ -24,9 +24,9 @@ object PresenzaRoute {
     }
   def createPresenza(): Route =
     post {
-      entity(as[Presenza]) { order =>
-        onComplete(PresenzaOperation.insert(order)) {
-          case Success(t) if t==1 =>  complete(StatusCodes.Created)
+      entity(as[Presenza]) { presenza =>
+        onComplete(PresenzaOperation.insert(presenza)) {
+          case Success(t) =>  complete(StatusCodes.Created)
         }
       }
     }

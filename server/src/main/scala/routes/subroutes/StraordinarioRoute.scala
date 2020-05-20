@@ -24,9 +24,13 @@ object StraordinarioRoute  {
     }
   def createStraordinario(): Route =
     post {
-      entity(as[Straordinario]) { order =>
-        onComplete(StraordinarioOperation.insert(order)) {
-          case Success(t) if t==1 =>  complete(StatusCodes.Created)
+      entity(as[Straordinario]) { straordinario =>
+        onComplete(StraordinarioOperation.insert(straordinario)) {
+          case Success(t) =>  complete(StatusCodes.Created,Straordinario(
+                                                        straordinario.data,
+                                                        straordinario.personaId,
+                                                        straordinario.turnoId,
+                                                        Some(t)))
         }
       }
     }

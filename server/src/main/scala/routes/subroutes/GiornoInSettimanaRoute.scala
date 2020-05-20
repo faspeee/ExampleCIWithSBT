@@ -25,9 +25,9 @@ object GiornoInSettimanaRoute {
     }
   def createGiornoInSettimana(): Route =
     post {
-      entity(as[GiornoInSettimana]) { order =>
-        onComplete(GiornoInSettimanaOperation.insert(order)) {
-          case Success(t) if t==1 =>  complete(StatusCodes.Created)
+      entity(as[GiornoInSettimana]) { giornoInSettimana =>
+        onComplete(GiornoInSettimanaOperation.insert(giornoInSettimana)) {
+          case Success(t)  =>  complete(StatusCodes.Created)
         }
       }
     }

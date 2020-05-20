@@ -56,9 +56,9 @@ object PersonaRoute {
     }
   def updatePersona(): Route =
     post {
-      entity(as[Persona]) { order =>
-        onComplete(PersonaOperation.update(order)) {
-          case Success(t) if t==1 =>  complete(StatusCodes.Created)
+      entity(as[Persona]) { persona =>
+        onComplete(PersonaOperation.update(persona)) {
+          case Success(t)  =>  complete(StatusCodes.Created)
         }
       }
     }

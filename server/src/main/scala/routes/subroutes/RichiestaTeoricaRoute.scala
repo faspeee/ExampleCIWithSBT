@@ -24,9 +24,9 @@ object RichiestaTeoricaRoute {
     }
   def createZona(): Route =
     post {
-      entity(as[RichiestaTeorica]) { order =>
-        onComplete(RichiestaTeoricaOperation.insert(order)) {
-          case Success(t) if t==1 =>  complete(StatusCodes.Created)
+      entity(as[RichiestaTeorica]) { richiestaTeorica =>
+        onComplete(RichiestaTeoricaOperation.insert(richiestaTeorica)) {
+          case Success(t) =>  complete(StatusCodes.Created)
         }
       }
     }

@@ -26,39 +26,39 @@ object TurnoRoute {
     post {
       entity(as[Turno]) { turno =>
         onComplete(TurnoOperation.insert(turno)) {
-          case Success(t) if t==1 =>  complete(StatusCodes.Created)
+          case Success(t)  =>  complete(StatusCodes.Created,Turno(turno.nomeTurno,turno.fasciaOraria,Some(t)))
         }
       }
     }
   def createAllTurno(): Route =
     post {
-      entity(as[List[Turno]]) { order =>
-        onComplete(TurnoOperation.insertAll(order)) {
-          case Success(t) if t==1 =>  complete(StatusCodes.Created)
+      entity(as[List[Turno]]) { turno =>
+        onComplete(TurnoOperation.insertAll(turno)) {
+          case Success(t)  =>  complete(StatusCodes.Created)
         }
       }
     }
   def deleteTurno(): Route =
     post {
-      entity(as[Turno]) { order =>
-        onComplete(TurnoOperation.delete(order)) {
-          case Success(t) if t==1 =>  complete(StatusCodes.Created)
+      entity(as[Turno]) { turno =>
+        onComplete(TurnoOperation.delete(turno)) {
+          case Success(t)  =>  complete(StatusCodes.OK)
         }
       }
     }
   def deleteAllTurno(): Route =
     post {
-      entity(as[List[Turno]]) { order =>
-        onComplete(TurnoOperation.deleteAll(order)) {
-          case Success(t) if t==1 =>  complete(StatusCodes.Created)
+      entity(as[List[Turno]]) { turno =>
+        onComplete(TurnoOperation.deleteAll(turno)) {
+          case Success(t)  =>  complete(StatusCodes.OK)
         }
       }
     }
   def updateTurno(): Route =
     post {
-      entity(as[Turno]) { order =>
-        onComplete(TurnoOperation.update(order)) {
-          case Success(t) if t==1 =>  complete(StatusCodes.Created)
+      entity(as[Turno]) { turno =>
+        onComplete(TurnoOperation.update(turno)) {
+          case Success(t)  =>  complete(StatusCodes.OK)
         }
       }
     }
