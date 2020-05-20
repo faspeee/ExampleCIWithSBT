@@ -6,6 +6,7 @@ import utils.caseclass.CaseClassDB.{Persona, Terminale}
 import view.scenes.RisorseUmaneView
 import dbmanagment.operation.ImplicitCrudG._
 import dbmanagment.operation.{PersonaOperation, TerminaleOperation}
+import model.zona.RisorseUmaneModel
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.util.Success
@@ -24,17 +25,16 @@ object RisorseUmaneController{
 
   private class RisorseUmaneControllerImpl() extends AbstractController[RisorseUmaneView] with RisorseUmaneController{
 
+    private val model = RisorseUmaneModel()
+
     override def assumi(assunzione: Persona): Unit = {
       val millis = System.currentTimeMillis
-      PersonaOperation.insert(Persona(assunzione.nome,assunzione.cognome,new java.sql.Date(millis),assunzione.numTelefono,10,assunzione.idTerminale))
+      model.assumi(Persona(assunzione.nome,assunzione.cognome,new java.sql.Date(millis),assunzione.numTelefono,10,assunzione.idTerminale)).andThen(_ => println("Fatto merda"))
+
     }
 
     override def licenzia(ids: Set[Int]): Unit = {
-      var list: List[Persona] = List()
-      ids.foreach(x => list = Persona("","",new Date(1),"",1,None,Some(x))::list)
-     PersonaOperation.deleteAll(list).andThen(_=> loadLicenzia())
-
-
+     model.licenzia(ids).andThen(_=> loadLicenzia())
     }
 
     override def loadAssumi(): Unit = {
@@ -45,7 +45,7 @@ object RisorseUmaneController{
     }
 
     override def loadLicenzia(): Unit = {
-      PersonaOperation.selectAll.onComplete {
+      model.getAllPersone.onComplete {
         case Success(x) => myView.licenziaToLoad(x)
         case _ => println("rrrr")
       }
