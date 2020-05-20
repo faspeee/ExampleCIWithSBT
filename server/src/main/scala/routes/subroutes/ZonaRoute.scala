@@ -25,41 +25,41 @@ object ZonaRoute {
     }
   def createZona(): Route =
     post {
-      entity(as[Zona]) { order =>
-        onComplete(ZonaOperation.insert(order)) {
-          case Success(t) if t==1 =>  complete(StatusCodes.Created)
+      entity(as[Zona]) { zona =>
+        onComplete(ZonaOperation.insert(zona)) {
+          case Success(t) =>  complete(StatusCodes.Created,Zona(zona.zones,Some(t)))
         }
       }
     }
   def createAllZona(): Route =
     post {
-      entity(as[List[Zona]]) { order =>
-        onComplete(ZonaOperation.insertAll(order)) {
-          case Success(t) if t==1 =>  complete(StatusCodes.Created)
+      entity(as[List[Zona]]) { zona =>
+        onComplete(ZonaOperation.insertAll(zona)) {
+          case Success(t) =>  complete(StatusCodes.Created)
         }
       }
     }
   def deleteZona(): Route =
     post {
-      entity(as[Zona]) { order =>
-        onComplete(ZonaOperation.delete(order)) {
-          case Success(t) if t==1 =>  complete(StatusCodes.Created)
+      entity(as[Zona]) { zona =>
+        onComplete(ZonaOperation.delete(zona)) {
+          case Success(t)  =>  complete(StatusCodes.OK)
         }
       }
     }
   def deleteAllZona(): Route =
     post {
-      entity(as[List[Zona]]) { order =>
-        onComplete(ZonaOperation.deleteAll(order)) {
-          case Success(t) if t==1 =>  complete(StatusCodes.Created)
+      entity(as[List[Zona]]) { zona =>
+        onComplete(ZonaOperation.deleteAll(zona)) {
+          case Success(t) =>  complete(StatusCodes.OK)
         }
       }
     }
   def updateZona(): Route =
     post {
-      entity(as[Zona]) { order =>
-        onComplete(ZonaOperation.update(order)) {
-          case Success(t) if t==1 =>  complete(StatusCodes.Created)
+      entity(as[Zona]) { zona =>
+        onComplete(ZonaOperation.update(zona)) {
+          case Success(t) =>  complete(StatusCodes.Created)
         }
       }
     }

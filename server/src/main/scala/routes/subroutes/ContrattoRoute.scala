@@ -24,9 +24,9 @@ object ContrattoRoute {
     }
   def createContratto(): Route =
     post {
-      entity(as[Contratto]) { order =>
-        onComplete(ContrattoOperation.insert(order)) {
-          case Success(t) if t==1 =>  complete(StatusCodes.Created)
+      entity(as[Contratto]) { contratto =>
+        onComplete(ContrattoOperation.insert(contratto)) {
+          case Success(t) =>  complete(StatusCodes.Created)
         }
       }
     }

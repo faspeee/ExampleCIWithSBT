@@ -24,9 +24,9 @@ object RisultatoRoute {
     }
   def createRisultato(): Route =
     post {
-      entity(as[Risultato]) { order =>
-        onComplete(RisultatoOperation.insert(order)) {
-          case Success(t) if t==1 =>  complete(StatusCodes.Created)
+      entity(as[Risultato]) { risultato =>
+        onComplete(RisultatoOperation.insert(risultato)) {
+          case Success(t) =>  complete(StatusCodes.Created)
         }
       }
     }
