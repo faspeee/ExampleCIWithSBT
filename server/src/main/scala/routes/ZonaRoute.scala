@@ -4,30 +4,30 @@ import akka.http.scaladsl.model.StatusCodes
 import akka.http.scaladsl.server.Directives.{as, complete, entity, get, post, _}
 import akka.http.scaladsl.server.Route
 import dbmanagment.operation.ZonaOperation
-import utils.caseclass.CaseClassDB.Zona
-import akka.http.scaladsl.marshallers.sprayjson.SprayJsonSupport._
 import utils.jsonformat.JsonFormats._
+
+import scala.util.Success
+import exceptions.Exceptions._
+import utils.caseclass.CaseClassDB.Zona
 object ZonaRoute {
   def getZona(id: Int): Route =
     get {
-     onSuccess(ZonaOperation.select(id)) {
-        case Some(t) =>   complete((StatusCodes.Found,t))
-        case None  =>  complete(StatusCodes.NotFound)
+     onComplete(ZonaOperation.select(id)) {
+        case Success(t) =>    complete((StatusCodes.Found,t))
+        case Success(None) => complete(StatusCodes.NotFound)
       }
     }
   def getAllZona: Route =
     get {
-      onSuccess(ZonaOperation.selectAll) {
-        case h::t =>   complete((StatusCodes.Found,ZonaAll(h::t)))
-        case _  =>  complete(StatusCodes.NotFound)
+      onComplete(ZonaOperation.selectAll) {
+        case Success(t) =>  complete((StatusCodes.Found,t))
       }
     }
   def createZona(): Route =
     post {
       entity(as[Zona]) { order =>
-        onSuccess(ZonaOperation.insert(order)) {
-          case _:Int =>   complete(StatusCodes.Created)
-          case _  =>  complete(StatusCodes.BadRequest)
+        onComplete(ZonaOperation.insert(order)) {
+          case Success(t) if t==1 =>  complete(StatusCodes.Created)
         }
       }
     }

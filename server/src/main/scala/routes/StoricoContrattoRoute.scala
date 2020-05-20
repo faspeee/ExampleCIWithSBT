@@ -1,32 +1,30 @@
 package routes
-
 import akka.http.scaladsl.model.StatusCodes
 import akka.http.scaladsl.server.Directives.{as, complete, entity, get, post, _}
 import akka.http.scaladsl.server.Route
-import dbmanagment.operation.TurnoOperation
-import utils.caseclass.CaseClassDB.Turno
-import utils.jsonformat.JsonFormats._
-import scala.util.Success
-import exceptions.Exceptions._
+import dbmanagment.operation.StoricoContrattoOperation
+import utils.caseclass.CaseClassDB.StoricoContratto
 
-object TurnoRoute {
-  def getTurno(id: Int): Route =
+import scala.util.Success
+import utils.jsonformat.JsonFormats._
+object StoricoContrattoRoute  {
+  def getZona(id: Int): Route =
     get {
-      onComplete(TurnoOperation.select(id)) {
+      onComplete(StoricoContrattoOperation.select(id)) {
         case Success(t) =>    complete((StatusCodes.Found,t))
         case Success(None) => complete(StatusCodes.NotFound)
       }
     }
-  def getAllTurno: Route =
+  def getAllZona: Route =
     get {
-      onComplete(TurnoOperation.selectAll) {
+      onComplete(StoricoContrattoOperation.selectAll) {
         case Success(t) =>  complete((StatusCodes.Found,t))
       }
     }
-  def createTurno(): Route =
+  def createZona(): Route =
     post {
-      entity(as[Turno]) { turno =>
-        onComplete(TurnoOperation.insert(turno)) {
+      entity(as[StoricoContratto]) { order =>
+        onComplete(StoricoContrattoOperation.insert(order)) {
           case Success(t) if t==1 =>  complete(StatusCodes.Created)
         }
       }
