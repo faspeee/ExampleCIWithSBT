@@ -2,7 +2,7 @@ package routes
 
 import akka.http.scaladsl.server.Directives._
 import akka.http.scaladsl.server.Route
-import routes.TurnoRoute._
+//import routes.TurnoRoute._
 import routes.ZonaRoute._
 
 object MasterRoute {
@@ -17,11 +17,11 @@ object MasterRoute {
       path("createzona" ) {
           createZona()
       },
-      path("getturno" / IntNumber) {
-        id => getTurno(id)
+      /*path("getturno" / IntNumber) {
+        //id => getTurno(id)
       },
       path("createturno") {
-         createTurno()
-      }
+         //createTurno()
+      }*/
     )
 }

@@ -19,6 +19,7 @@ trait RisorseUmaneController extends Controller[RisorseUmaneView]{
 
 object RisorseUmaneController{
   private val instance = new RisorseUmaneControllerImpl()
+
   def apply(): RisorseUmaneController = instance
 
   private class RisorseUmaneControllerImpl() extends AbstractController[RisorseUmaneView] with RisorseUmaneController{

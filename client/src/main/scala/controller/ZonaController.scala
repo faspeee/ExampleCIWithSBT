@@ -1,14 +1,11 @@
 package controller
 
 import utils.caseclass.CaseClassDB.Zona
-import dbmanagment.operation.ImplicitCrudG._
 import dbmanagment.operation.ZonaOperation
-import scalafx.application.Platform
-
-import scala.concurrent.duration.Duration
+import model.zona.ZonaModelC
+import utils.observerPattern.Observer
 import view.scenes.ZonaView
 
-import scala.concurrent.Await
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.util.Success
 
@@ -25,6 +22,8 @@ object ZonaController {
 
   private class ZonaControllerImpl() extends AbstractController[ZonaView] with ZonaController{
 
+    val model = ZonaModelC()
+
     override def insertZone(nome: String): Unit = {
     ZonaOperation.insert(Zona(nome)).andThen(_=> loadZones())
     }
@@ -36,10 +35,9 @@ object ZonaController {
     }
 
     override def loadZones(): Unit = {
-      ZonaOperation.selectAll.onComplete{
-       case Success(x) => myView.setZones(x)
-       case _ => println("error")
-     }
+      model.zone.onComplete{
+        case Success(zone) => myView.setZones(zone)
+      }
     }
   }
 
