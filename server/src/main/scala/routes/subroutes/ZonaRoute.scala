@@ -27,7 +27,7 @@ object ZonaRoute {
     post {
       entity(as[Zona]) { order =>
         onComplete(ZonaOperation.insert(order)) {
-          case Success(t) if t==1 =>  complete(StatusCodes.Created)
+          case Success(t) =>  complete((StatusCodes.Created,Zona(order.zones,Option(t))))
         }
       }
     }

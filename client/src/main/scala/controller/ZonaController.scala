@@ -29,9 +29,7 @@ object ZonaController {
     }
 
     override def removeZones(ids: Set[Int]): Unit ={
-      var list: List[Zona] = List()
-      ids.foreach(x => list = Zona("",Some(x))::list)
-      ZonaOperation.deleteAll(list).andThen(_=> loadZones())
+      model.deleteAllZona(ids).andThen(_=> loadZones())
     }
 
     override def loadZones(): Unit = {

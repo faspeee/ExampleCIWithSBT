@@ -11,11 +11,7 @@ import scala.util.Success
 object RichiestaTeoricaRoute {
   def getZona(id: Int): Route =
     get {
-<<<<<<< HEAD:server/src/main/scala/routes/ZonaRoute.scala
-      onComplete(ZonaOperation.select(id)) {
-=======
       onComplete(RichiestaTeoricaOperation.select(id)) {
->>>>>>> 6272ce8c39c6e5d657f2997edb5c75917211af70:server/src/main/scala/routes/subroutes/RichiestaTeoricaRoute.scala
         case Success(t) =>    complete((StatusCodes.Found,t))
         case Success(None) => complete(StatusCodes.NotFound)
       }
