@@ -26,7 +26,7 @@ object ZonaController {
   private class ZonaControllerImpl() extends AbstractController[ZonaView] with ZonaController{
 
     override def insertZone(nome: String): Unit = {
-      ZonaOperation.insert(Zona(nome)).andThen(_=> loadZones())
+    ZonaOperation.insert(Zona(nome)).andThen(_=> loadZones())
     }
 
     override def removeZones(ids: Set[Int]): Unit ={
