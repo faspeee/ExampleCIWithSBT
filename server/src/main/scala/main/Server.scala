@@ -5,14 +5,15 @@ import akka.actor.typed.{ActorSystem, Behavior}
 import akka.actor.typed.scaladsl.Behaviors
 import akka.http.scaladsl.Http
 import akka.http.scaladsl.server.Route
-import routes.MasterRoute
+import routes.Route.route
+
 import scala.util.{Failure, Success}
 
 object Server {
   final case class StartServer()
   def apply():Behavior[StartServer]=
     Behaviors.setup{ context =>
-      startHttpServer(MasterRoute.route, context.system)
+      startHttpServer(route, context.system)
       Behaviors.empty
     }
   private def startHttpServer(routes: Route, system: ActorSystem[_]): Unit = {
