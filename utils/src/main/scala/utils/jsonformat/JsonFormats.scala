@@ -1,15 +1,19 @@
 package utils.jsonformat
- 
-import routes.TurnoRoute.Turno
-import spray.json.DefaultJsonProtocol
-import utils.caseclass.CaseClassDB.Zona
-object JsonFormats {
-    import DefaultJsonProtocol._
+import akka.http.scaladsl.marshallers.sprayjson.SprayJsonSupport
+import spray.json._
+import utils.caseclass.CaseClassDB.{Settimana, StoricoContratto, Straordinario, Terminale, Turno, Zona}
+import ImplicitDate._
 
-    final case class ZonaAll(zone:List[Zona])
-    implicit val zonaJsonFormat = jsonFormat2(Zona)
-    implicit val zonaAllJsonFormat = jsonFormat1(ZonaAll)
-    implicit val turnoJsonFormat = jsonFormat2(Turno)
+object JsonFormats extends SprayJsonSupport with DefaultJsonProtocol {
+
+
+    implicit val zonaJsonFormat: RootJsonFormat[Zona] = jsonFormat2(Zona)
+    implicit val turnoJsonFormat: RootJsonFormat[Turno] = jsonFormat3(Turno)
+    implicit val terminaleJsonFormat: RootJsonFormat[Terminale] = jsonFormat3(Terminale)
+    implicit val straordinarioJsonFormat: RootJsonFormat[Straordinario] = jsonFormat4(Straordinario)
+    implicit val storicoContrattoJsonFormat: RootJsonFormat[StoricoContratto] = jsonFormat7(StoricoContratto)
+    implicit val settimanaJsonFormat: RootJsonFormat[Settimana] = jsonFormat2(Settimana)
+
 
 
 }
