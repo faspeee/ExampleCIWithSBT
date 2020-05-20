@@ -4,7 +4,7 @@ import akka.http.scaladsl.server.Route
 import akka.http.scaladsl.server.Directives.{as, complete, entity, get, post, _}
 import dbmanagment.operation.PersonaOperation
 import routes.exceptions
-import utils.caseclass.CaseClassDB.Persona
+import utils.caseclass.CaseClassDB.{Login, Persona}
 import utils.jsonformat.JsonFormats._
 
 import scala.util.Success
@@ -59,6 +59,14 @@ object PersonaRoute {
       entity(as[Persona]) { persona =>
         onComplete(PersonaOperation.update(persona)) {
           case Success(t)  =>  complete(StatusCodes.Created)
+        }
+      }
+    }
+  def loginPersona(): Route =
+    post {
+      entity(as[Login]) { login =>
+        onComplete(PersonaOperation.login(login)) {
+          case Success(t)  =>  complete(StatusCodes.Created,t)
         }
       }
     }
