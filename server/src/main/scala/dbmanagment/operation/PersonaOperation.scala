@@ -4,7 +4,7 @@ import dbmanagment.setting.implicitsGeneric.Brands
 import dbmanagment.table.PersonaTable.PersonaTableRep
 import dbmanagment.table.TerminaleTable.TerminaleTableRep
 import slick.jdbc.SQLServerProfile.api._
-import utils.caseclass.CaseClassDB.Persona
+import utils.caseclass.CaseClassDB.{Login, Persona}
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.{Future, Promise}
@@ -12,6 +12,7 @@ trait PersonaOperation extends OperationCrud[Persona]{
   def filterByName(name:String):Future[Seq[Persona]]
   def filterBySurname(surname: String): Future[List[Persona]]
   def monadicInnerJoin():Unit
+  def login(login:Login):Future[List[Persona]]
 }
 object PersonaOperation extends  PersonaOperation{
   private def SelectType: Brands[Persona, PersonaTableRep] =Brands[Persona,PersonaTableRep]()
@@ -41,5 +42,10 @@ object PersonaOperation extends  PersonaOperation{
       })
 
   }
+  override def login(login: Login): Future[List[Persona]] = {
+    val promiseFilterBySurname = Promise[List[Persona]]
+    execFilter(promiseFilterBySurname,x => x.nome===login.user && x.cognome===login.password)
+    promiseFilterBySurname.future
 
+  }
 }

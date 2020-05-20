@@ -26,6 +26,10 @@ object MasterRoutePersona {
       },
       path("updatepersona") {
         updatePersona()
+      },
+      path("loginpersona") {
+        loginPersona()
       }
+
     )
 }
