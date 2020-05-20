@@ -24,41 +24,41 @@ object TerminaleRoute  {
     }
   def createTerminale(): Route =
     post {
-      entity(as[Terminale]) { order =>
-        onComplete(TerminaleOperation.insert(order)) {
-          case Success(t) if t==1 =>  complete(StatusCodes.Created)
+      entity(as[Terminale]) { terminale =>
+        onComplete(TerminaleOperation.insert(terminale)) {
+          case Success(t) =>  complete(StatusCodes.Created,Terminale(terminale.nomeTerminale,terminale.idZona,Some(t)))
         }
       }
     }
   def createAllTerminale(): Route =
     post {
-      entity(as[List[Terminale]]) { order =>
-        onComplete(TerminaleOperation.insertAll(order)) {
-          case Success(t) if t==1 =>  complete(StatusCodes.Created)
+      entity(as[List[Terminale]]) { terminale =>
+        onComplete(TerminaleOperation.insertAll(terminale)) {
+          case Success(t)  =>  complete(StatusCodes.Created)
         }
       }
     }
   def deleteTerminale(): Route =
     post {
-      entity(as[Terminale]) { order =>
-        onComplete(TerminaleOperation.delete(order)) {
-          case Success(t) if t==1 =>  complete(StatusCodes.Created)
+      entity(as[Terminale]) { terminale =>
+        onComplete(TerminaleOperation.delete(terminale)) {
+          case Success(t)  =>  complete(StatusCodes.OK)
         }
       }
     }
   def deleteAllTerminale(): Route =
     post {
-      entity(as[List[Terminale]]) { order =>
-        onComplete(TerminaleOperation.deleteAll(order)) {
-          case Success(t) if t==1 =>  complete(StatusCodes.Created)
+      entity(as[List[Terminale]]) { terminale =>
+        onComplete(TerminaleOperation.deleteAll(terminale)) {
+          case Success(t)  =>  complete(StatusCodes.OK)
         }
       }
     }
   def updateTerminale(): Route =
     post {
-      entity(as[Terminale]) { order =>
-        onComplete(TerminaleOperation.update(order)) {
-          case Success(t) if t==1 =>  complete(StatusCodes.Created)
+      entity(as[Terminale]) { terminale =>
+        onComplete(TerminaleOperation.update(terminale)) {
+          case Success(t)  =>  complete(StatusCodes.OK)
         }
       }
     }

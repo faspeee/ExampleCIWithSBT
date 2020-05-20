@@ -24,9 +24,9 @@ object ParametroRoute {
     }
   def createParametro(): Route =
     post {
-      entity(as[Parametro]) { order =>
-        onComplete(ParametroOperation.insert(order)) {
-          case Success(t) if t==1 =>  complete(StatusCodes.Created)
+      entity(as[Parametro]) { parametro =>
+        onComplete(ParametroOperation.insert(parametro)) {
+          case Success(t)  =>  complete(StatusCodes.Created)
         }
       }
     }

@@ -25,9 +25,9 @@ object GruppoTerminaleRoute {
     }
   def createGruppoTerminale(): Route =
     post {
-      entity(as[GruppoTerminale]) { order =>
-        onComplete(GruppoTerminaleOperation.insert(order)) {
-          case Success(t) if t==1 =>  complete(StatusCodes.Created)
+      entity(as[GruppoTerminale]) { gruppoTerminale =>
+        onComplete(GruppoTerminaleOperation.insert(gruppoTerminale)) {
+          case Success(t)  =>  complete(StatusCodes.Created)
         }
       }
     }
