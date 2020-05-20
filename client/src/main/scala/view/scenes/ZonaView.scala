@@ -3,7 +3,7 @@ import java.net.URL
 import java.util.ResourceBundle
 
 import controller.ZonaController
-import utils.caseclass.CaseClassDB.Zona 
+import utils.caseclass.CaseClassDB.Zona
 import javafx.scene.Scene
 import javafx.scene.control.ProgressIndicator
 import javafx.stage.Stage
@@ -21,10 +21,11 @@ trait ZonaBoxObserver{
 object ZonaView {
   private class ZonaViewImpl extends AbstractActiveSceneWithTop with ZonaView with ZonaBoxObserver {
     private val myController = ZonaController()
+
     override def initialize(location: URL, resources: ResourceBundle): Unit = {
-      myController.setView(this)
       val center = ZonaBox()
       center.loading()
+      myController.setView(this)
       pane.setCenter(center.pane())
       myController.loadZones()
     }

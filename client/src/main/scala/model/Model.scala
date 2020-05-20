@@ -10,6 +10,6 @@ class Model (private var n: Int = 0) extends Observable[Model]{
   def get(): Int = n
   def increase(add: Int) = {
     n += add
-    notifyObserver()
+    //notifyObserver()
   }
 }
