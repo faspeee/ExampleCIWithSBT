@@ -6,14 +6,11 @@ import ImplicitDate._
 
 object JsonFormats extends SprayJsonSupport with DefaultJsonProtocol {
 
-
     implicit val zonaJsonFormat: RootJsonFormat[Zona] = jsonFormat2(Zona)
     implicit val turnoJsonFormat: RootJsonFormat[Turno] = jsonFormat3(Turno)
     implicit val terminaleJsonFormat: RootJsonFormat[Terminale] = jsonFormat3(Terminale)
     implicit val straordinarioJsonFormat: RootJsonFormat[Straordinario] = jsonFormat4(Straordinario)
     implicit val storicoContrattoJsonFormat: RootJsonFormat[StoricoContratto] = jsonFormat7(StoricoContratto)
     implicit val settimanaJsonFormat: RootJsonFormat[Settimana] = jsonFormat2(Settimana)
-
-
 
 }
