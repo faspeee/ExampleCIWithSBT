@@ -10,4 +10,5 @@ object ImplicitDate {
       case _ => throw DeserializationException("Invalid date format: " + json)
     }
   }
+
 }
