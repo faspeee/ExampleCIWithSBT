@@ -1,6 +1,7 @@
 package utils.caseclass
 import java.sql.Date
 object CaseClassDB{
+  final case class Login(user:String,password:String)
   final case class Giorno(quantita:Int,nomeGiorno:String,idGiorno:Option[Int]=None)
   final case class Zona(zones:String,idZone:Option[Int]=None)
   final case class Turno(nomeTurno: String, fasciaOraria: String,id: Option[Int] = None)
