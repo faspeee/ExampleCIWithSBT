@@ -42,7 +42,7 @@ abstract class AbstractActiveScene extends Initializable with ActiveScene {
   def apply(primaryStage: Stage, oldScene:Option[Scene] = None){
     stage = primaryStage
     previousScene = oldScene
-    SceneLoader.loadScene(primaryStage,this, "/fxml/BaseView.fxml")
+    SceneLoader.loadScene(primaryStage,this, "/fxml/baseView.fxml")
   }
 
   override def goBack(): Unit = {

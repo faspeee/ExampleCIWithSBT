@@ -28,7 +28,7 @@ object RisorseUmaneModel {
     override def assumi(persona: Persona): Future[Unit] = {
       val pers = Promise[Unit]
       val req2 = Post("http://localhost:8080/createpersona",persona)
-      dispatcher.serverRequest(req2).onComplete(_=> pers.success())
+      dispatcher.serverRequest(req2).onComplete(_=> pers.success(Unit))
       pers.future
     }
 
@@ -37,7 +37,7 @@ object RisorseUmaneModel {
       var list: List[Persona] = List()
       ids.foreach(x => list = Persona("","",new Date(1),"",1,None,Some(x))::list)
       val req2 = Post("http://localhost:8080/deleteallpersona",list)
-      dispatcher.serverRequest(req2).andThen(_=>pers.success())
+      dispatcher.serverRequest(req2).onComplete(_ => pers.success(Unit))
       pers.future
     }
 

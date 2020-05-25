@@ -19,6 +19,8 @@ object SceneLoader {
    */
   def loadScene(primaryStage: Stage, controller: ActiveScene, layoutPath: String): Unit = {
     val loader = new FXMLLoader(getClass.getResource(layoutPath))
+    println(getClass.getResource(layoutPath))
+    println(loader)
     loader.setController(controller)
     loader.load
     primaryStage.setScene(new Scene(loader.getRoot[Parent]))

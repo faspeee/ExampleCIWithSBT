@@ -20,7 +20,7 @@ trait ZoneHBoxObserver{
 object ZonaBox {
   def apply(): ZonaBox = new ZonaBoxImpl()
 
-  private class ZonaBoxImpl()extends AbstractComponent[ZonaBoxObserver]("/fxml/components/ZonaBox.fxml") with ZonaBox with ZoneHBoxObserver {
+  private class ZonaBoxImpl()extends AbstractComponent[ZonaBoxObserver]("/fxml/components/zonaBox.fxml") with ZonaBox with ZoneHBoxObserver {
     @FXML
     var zonaBox:VBox = _
     @FXML

@@ -27,7 +27,7 @@ object LoginBox {
 
   def apply(): LoginBox = new LoginBoxView()
 
-  private class LoginBoxView extends AbstractComponent[LoginObserver]("/fxml/components/LoginBox.fxml") with Initializable with LoginBox {
+  private class LoginBoxView extends AbstractComponent[LoginObserver]("/fxml/components/loginBox.fxml") with Initializable with LoginBox {
     @FXML
     var usernameField: TextField = _
     @FXML
@@ -38,6 +38,7 @@ object LoginBox {
     var error: Label = _
 
     override def initialize(location: URL, resources: ResourceBundle): Unit = {
+
       loginButton.setOnAction(_ => {
         val name = usernameField.getText()
         val pass = passwordField.getText()

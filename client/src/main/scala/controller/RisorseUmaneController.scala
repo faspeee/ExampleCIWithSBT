@@ -29,12 +29,12 @@ object RisorseUmaneController{
 
     override def assumi(assunzione: Persona): Unit = {
       val millis = System.currentTimeMillis
-      model.assumi(Persona(assunzione.nome,assunzione.cognome,new java.sql.Date(millis),assunzione.numTelefono,10,assunzione.idTerminale)).andThen(_ => println("Fatto merda"))
+      model.assumi(Persona(assunzione.nome,assunzione.cognome,new java.sql.Date(millis),assunzione.numTelefono,10,assunzione.idTerminale)).onComplete(t => println("Fatto merda"))
 
     }
 
     override def licenzia(ids: Set[Int]): Unit = {
-     model.licenzia(ids).andThen(_=> loadLicenzia())
+     model.licenzia(ids).onComplete(_=> loadLicenzia())
     }
 
     override def loadAssumi(): Unit = {

@@ -25,11 +25,11 @@ object ZonaController {
     val model = ZonaModelC()
 
     override def insertZone(nome: String): Unit = {
-      model.addZona(nome).andThen(_ => loadZones())
+      model.addZona(nome).onComplete(_ => loadZones())
     }
 
     override def removeZones(ids: Set[Int]): Unit ={
-      model.deleteAllZona(ids).andThen(_=> loadZones())
+      model.deleteAllZona(ids).onComplete(_=> loadZones())
     }
 
     override def loadZones(): Unit = {
