@@ -17,7 +17,7 @@ trait AssumiBox extends Component[AssumiBoxObserver]{
 object AssumiBox{
   def apply(): AssumiBox = new AssumiBoxImpl()
 
-  private class AssumiBoxImpl() extends AbstractComponent[AssumiBoxObserver]("/fxml/components/AssumiBox.fxml") with AssumiBox{
+  private class AssumiBoxImpl() extends AbstractComponent[AssumiBoxObserver]("/fxml/components/assumiBox.fxml") with AssumiBox{
     @FXML
     var nome: TextField = _
     @FXML
