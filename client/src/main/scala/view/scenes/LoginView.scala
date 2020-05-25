@@ -41,7 +41,7 @@ trait LoginObserver{
  * [[view.scenes.LoginObserver]]
  */
 object LoginView {
-  private class LoginView extends AbstractActiveScene with Initializable with LoginObservervable with LoginObserver {
+  private class LoginView extends AbstractActiveScene with LoginObservervable with LoginObserver {
     private val myController = LoginController()
     private var center:LoginBox = _
 

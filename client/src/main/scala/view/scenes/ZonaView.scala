@@ -7,7 +7,7 @@ import utils.caseclass.CaseClassDB.Zona
 import javafx.scene.Scene
 import javafx.scene.control.ProgressIndicator
 import javafx.stage.Stage
-import scalafx.application.Platform
+import javafx.application.Platform
 import view.components.ZonaBox
 
 trait ZonaView{

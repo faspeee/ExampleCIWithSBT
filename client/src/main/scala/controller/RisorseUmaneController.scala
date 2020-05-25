@@ -31,7 +31,7 @@ object RisorseUmaneController{
     override def licenzia(ids: Set[Int]): Unit = {
       var list: List[Persona] = List()
       ids.foreach(x => list = Persona("","",new Date(1),"",1,None,Some(x))::list)
-     PersonaOperation.deleteAll(list).andThen(_=> loadLicenzia())
+     PersonaOperation.deleteAll(list).onComplete( _ => loadLicenzia())
 
 
     }

@@ -5,7 +5,7 @@ import akka.actor.typed.{ActorSystem, Behavior}
 import akka.actor.typed.scaladsl.Behaviors
 import akka.http.scaladsl.Http
 import akka.http.scaladsl.server.Route
-import routes.Route.route
+import routes.MainRoute.route
 
 import scala.util.{Failure, Success}
 

@@ -5,7 +5,7 @@ import javafx.stage.Stage
 import model.Model
 
 
-object MainFra extends App {
+object MainFra  {
 
   val model: Model = new Model
   val controller = FraController(model)

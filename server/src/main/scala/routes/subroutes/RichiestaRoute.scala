@@ -9,20 +9,20 @@ import utils.jsonformat.JsonFormats._
 
 import scala.util.Success
 object RichiestaRoute {
-  def getZona(id: Int): Route =
+  def getRichiesta(id: Int): Route =
     get {
       onComplete(RichiestaOperation.select(id)) {
         case Success(t) =>    complete((StatusCodes.Found,t))
         case Success(None) => complete(StatusCodes.NotFound)
       }
     }
-  def getAllZona: Route =
+  def getAllRichiesta: Route =
     post {
       onComplete(RichiestaOperation.selectAll) {
         case Success(t) =>  complete((StatusCodes.Found,t))
       }
     }
-  def createZona(): Route =
+  def createRichiesta(): Route =
     post {
       entity(as[Richiesta]) { richiesta =>
         onComplete(RichiestaOperation.insert(richiesta)) {

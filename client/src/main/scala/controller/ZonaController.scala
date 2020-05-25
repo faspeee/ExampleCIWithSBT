@@ -3,12 +3,10 @@ package controller
 import utils.caseclass.CaseClassDB.Zona
 import dbmanagment.operation.ImplicitCrudG._
 import dbmanagment.operation.ZonaOperation
-import scalafx.application.Platform
 
 import scala.concurrent.duration.Duration
 import view.scenes.ZonaView
 
-import scala.concurrent.Await
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.util.Success
 
@@ -26,13 +24,13 @@ object ZonaController {
   private class ZonaControllerImpl() extends AbstractController[ZonaView] with ZonaController{
 
     override def insertZone(nome: String): Unit = {
-    ZonaOperation.insert(Zona(nome)).andThen(_=> loadZones())
+    ZonaOperation.insert(Zona(nome)) onComplete  (_ => loadZones())
     }
 
     override def removeZones(ids: Set[Int]): Unit ={
       var list: List[Zona] = List()
       ids.foreach(x => list = Zona("",Some(x))::list)
-      ZonaOperation.deleteAll(list).andThen(_=> loadZones())
+      ZonaOperation.deleteAll(list) onComplete  (_ => loadZones())
     }
 
     override def loadZones(): Unit = {

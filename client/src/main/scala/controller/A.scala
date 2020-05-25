@@ -21,7 +21,7 @@ class B extends A{
   }
 }
 
-object tryB extends App{
+object tryB{
   val s = new B
   print(s.sum())
 }

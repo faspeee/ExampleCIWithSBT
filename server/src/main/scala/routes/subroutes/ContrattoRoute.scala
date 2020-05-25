@@ -6,15 +6,17 @@ import akka.http.scaladsl.server.Route
 import dbmanagment.operation.ContrattoOperation
 import utils.caseclass.CaseClassDB.Contratto
 import utils.jsonformat.JsonFormats._
-import scala.util.Success
-import routes.exceptions
-object ContrattoRoute {
+
+import scala.util.{Failure, Success}
+import routes.exceptions.Exceptions.myExceptionHandler
+
+object ContrattoRoute{
   def getContratto(id: Int): Route =
     get {
-      onComplete(ContrattoOperation.select(id)) {
-        case Success(t) =>    complete((StatusCodes.Found,t))
-        case Success(None) => complete(StatusCodes.NotFound)
-      }
+      onComplete(ContrattoOperation.select(id)){
+         case Success(t) =>    complete((StatusCodes.Found,t))
+         case Failure(_) => complete(StatusCodes.NotFound)
+       }
     }
   def getAllContratto: Route =
     post {

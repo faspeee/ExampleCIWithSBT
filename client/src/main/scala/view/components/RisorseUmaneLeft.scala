@@ -13,7 +13,7 @@ trait RisorseUmaneLeft extends Component[RisorseUmaneLeftObserver]{
 
 object RisorseUmaneLeft{
   def apply(): RisorseUmaneLeft = new RisorseUmaneLeftImpl()
-  private class RisorseUmaneLeftImpl extends AbstractComponent[RisorseUmaneLeftObserver]("/fxml/components/RisorseUmaneLeft.fxml") with RisorseUmaneLeft{
+  private class RisorseUmaneLeftImpl extends AbstractComponent[RisorseUmaneLeftObserver]("/fxml/components/risorseUmaneLeft.fxml") with RisorseUmaneLeft{
     @FXML
     var btnAssumi: Button = _
     @FXML

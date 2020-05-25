@@ -52,6 +52,8 @@ _**git checkout master**_
 
 **_git fetch upstream_**
 
+per rimuovere un upstream bisogna scrivere 
+**_git remote rm upstream_**
 ****Comandi vim****
 
 per salvare= _**esc+ :w**_ 

@@ -42,7 +42,7 @@ object TestDb {
   val turni = TableQuery[TurnoTable]
   val giorni = TableQuery[GiornoTable]
 
-  def main(args: Array[String]): Unit = {
+  def mainp(args: Array[String]): Unit = {
     val dbCo:DatabaseConfig[JdbcProfile] = DatabaseConfig.forConfig("sqlserver")
     val db:JdbcProfile #Backend#Database = dbCo.db
 

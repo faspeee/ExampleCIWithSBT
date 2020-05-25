@@ -1,0 +1,9 @@
+#vbox {
+    -fx-padding: 5px;
+    -fx-fill-width: yes;
+    -fx-min-width: 100%;
+    -fx-min-height: 100%;
+    -fx-pref-width: 200px;
+    -fx-pref-height: 200px;
+    -fx-alignment: center;
+}

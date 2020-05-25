@@ -5,6 +5,8 @@ import akka.http.scaladsl.model.StatusCodes._
 import akka.http.scaladsl.server._
 import Directives._
 
+import scala.util.Failure
+
 object Exceptions {
   implicit def myExceptionHandler: ExceptionHandler =
     ExceptionHandler {
@@ -28,5 +30,6 @@ object Exceptions {
           println(s"Request to $uri could not be handled normally")
           complete(HttpResponse(BadRequest, entity = "Bad numbers, bad result!!!"))
         }
+
     }
 }
