@@ -19,7 +19,7 @@ trait ConducenteObserver{
 
 object LicenziaBox{
   def apply(): LicenziaBox = new LicenziaBoxImpl()
-  private class LicenziaBoxImpl extends AbstractComponent[LicenziaBoxObserver]("/fxml/components/LicenziaBox.fxml") with LicenziaBox with ConducenteObserver {
+  private class LicenziaBoxImpl extends AbstractComponent[LicenziaBoxObserver]("/fxml/components/licenziaBox.fxml") with LicenziaBox with ConducenteObserver {
     @FXML
     var licenziaBox:VBox = _
     @FXML

@@ -13,7 +13,7 @@ trait TopBar extends Component[AbstractActiveSceneWithTop]{
 object TopBar{
   def apply(): TopBar = new TopBarImpl()
 
-  private class TopBarImpl() extends AbstractComponent[AbstractActiveSceneWithTop]("/fxml/components/TopBar.fxml") with TopBar{
+  private class TopBarImpl() extends AbstractComponent[AbstractActiveSceneWithTop]("/fxml/components/topBar.fxml") with TopBar{
     @FXML
     var risorse:Button = _
     @FXML

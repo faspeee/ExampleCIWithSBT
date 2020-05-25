@@ -1,10 +1,11 @@
 package controller
 
 import utils.caseclass.CaseClassDB.Zona
-import dbmanagment.operation.ImplicitCrudG._
 import dbmanagment.operation.ZonaOperation
 
 import scala.concurrent.duration.Duration
+import model.zona.ZonaModelC
+import utils.observerPattern.Observer
 import view.scenes.ZonaView
 
 import scala.concurrent.ExecutionContext.Implicits.global
@@ -23,21 +24,20 @@ object ZonaController {
 
   private class ZonaControllerImpl() extends AbstractController[ZonaView] with ZonaController{
 
+    val model = ZonaModelC()
+
     override def insertZone(nome: String): Unit = {
-    ZonaOperation.insert(Zona(nome)) onComplete  (_ => loadZones())
+      model.addZona(nome).onComplete(_ => loadZones())
     }
 
     override def removeZones(ids: Set[Int]): Unit ={
-      var list: List[Zona] = List()
-      ids.foreach(x => list = Zona("",Some(x))::list)
-      ZonaOperation.deleteAll(list) onComplete  (_ => loadZones())
+      model.deleteAllZona(ids).onComplete(_=> loadZones())
     }
 
     override def loadZones(): Unit = {
-      ZonaOperation.selectAll.onComplete{
-       case Success(x) => myView.setZones(x)
-       case _ => println("error")
-     }
+      model.zone.onComplete{
+        case Success(zone) => myView.setZones(zone)
+      }
     }
   }
 

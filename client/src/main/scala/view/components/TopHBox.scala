@@ -21,7 +21,7 @@ trait TopHBox extends Component[TopHBoxObserver]{
 object TopHBox{
   def apply(): TopHBox = new TopHBoxImpl()
 
-  private class TopHBoxImpl() extends AbstractComponent[TopHBoxObserver]("/fxml/components/TopHBox.fxml") with TopHBox{
+  private class TopHBoxImpl() extends AbstractComponent[TopHBoxObserver]("/fxml/components/topHBox.fxml") with TopHBox{
     @FXML
     var nomeGiorno: TextField = _
     @FXML

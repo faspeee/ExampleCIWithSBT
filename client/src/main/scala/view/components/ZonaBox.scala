@@ -36,7 +36,7 @@ object ZonaBox {
       remove.setOnAction(_=> observer.remove(toRemove))
     }
 
-    override def setZone(zone: List[Zona]): Unit = {
+    override def setZone(zone:List[Zona]): Unit = {
       zone.foreach(z => {
         val zona = ZoneHBox()
         zona.setObserver(this)
